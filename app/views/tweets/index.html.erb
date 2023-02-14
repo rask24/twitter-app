@@ -1,0 +1,18 @@
+<h1>Twitter</h1>
+<%= turbo_frame_tag :tweets_list do %>
+  <%= form_with model: @new_tweet do |f| %>
+    <div>
+      <%= f.text_field :text %>
+    </div>
+    <div>
+      <%= f.submit %>
+    </div>
+  <% end %>
+  <ul>
+    <% @tweets.each do |tweet| %>
+      <li>
+        <%= tweet.text %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
