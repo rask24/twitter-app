@@ -1,0 +1,22 @@
+<h1>
+  <%= link_to 'Twitter', root_path %>
+</h1>
+<% if user_signed_in? %>
+  <h2>
+    logged in user: 
+    <%= current_user.name %>
+  </h2>
+  <%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: 'delete'} %>
+<% else %>
+  <%= link_to 'Login', new_user_session_path %>
+<% end %>
+<h3><%= @user.name %>'s Tweets</h3>
+<ul>
+  <% @my_tweets.each do |tweet| %>
+    <li>
+      <%= tweet.user.name %>
+      <%= tweet.text %>
+      <%= tweet.created_at.strftime('%Y/%m/%d %H:%M') %>
+    </li>
+  <% end %>
+</ul>
