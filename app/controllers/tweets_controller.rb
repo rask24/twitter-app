@@ -1,9 +1,10 @@
 class TweetsController < ApplicationController
   def index
-    unless user_signed_in?
-      authenticate_user!
+    if user_signed_in?
+      @tweets = Tweet.order(created_at: :desc)
+    else
+      @tweets = Tweet.order(created_at: :desc).first(5)
     end
-    @tweets = Tweet.all
     @new_tweet = Tweet.new
   end
 
@@ -12,6 +13,7 @@ class TweetsController < ApplicationController
     if @new_tweet.save
       redirect_to root_path
     else
+      @tweets = Tweet.order(created_at: :desc)
       render 'index', status: :unprocessable_entity
     end
   end

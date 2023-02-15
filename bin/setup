@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+way
 require "fileutils"
 
 # path to your application root.
