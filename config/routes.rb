@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'follows/create'
   get 'users/show'
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -9,5 +10,6 @@ Rails.application.routes.draw do
 
   resources :tweets
   resources :users
+  resources :follows
 
 end
