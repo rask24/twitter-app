@@ -4,7 +4,10 @@
 <% if user_signed_in? %>
   <h2>
     logged in user: 
-    <%= current_user.name %>
+    <%= link_to current_user.name, user_path(current_user) %>
+    (
+    <%= current_user.id %>
+    )
   </h2>
   <%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: 'delete'} %>
 <% else %>
@@ -31,7 +34,7 @@
       <li>
         <%= link_to tweet.user.name, user_path(tweet.user) %>
         <%= tweet.text %>
-        <%= tweet.created_at.strftime('%Y/%m/%d %H:%M') %>
+        <%= tweet.created_at.strftime('%m/%d %H:%M') %>
       </li>
     <% end %>
   </ul>

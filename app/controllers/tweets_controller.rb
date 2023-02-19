@@ -1,7 +1,11 @@
 class TweetsController < ApplicationController
   def index
     if user_signed_in?
-      @tweets = Tweet.order(created_at: :desc)
+      followees_id = Follow.where(follower_id: current_user.id).map do |followee|
+        followee.followee_id
+      end
+      @tweets = Tweet.where(user_id: followees_id).order(created_at: :desc)
+      @followees = User.where(id: followees_id).order(created_at: :desc)
     else
       @tweets = Tweet.order(created_at: :desc).first(5)
     end
