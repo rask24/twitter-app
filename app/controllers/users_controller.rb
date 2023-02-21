@@ -15,15 +15,18 @@ class UsersController < ApplicationController
     @followers = User.where(id: followers_id).order(created_at: :desc)
     @new_follow = Follow.new
 
-    @is_others = current_user.id != @user.id
-    @is_following = false
-    @follow_rel_id = nil
-    Follow.where(follower_id: current_user.id).each do |rel|
-      if rel.followee_id == @user.id
-        @is_following = true
-        @follow_rel_id = rel.id
+    if user_signed_in?
+      @is_others = current_user.id != @user.id
+      @is_following = false
+      @follow_rel_id = nil
+      Follow.where(follower_id: current_user.id).each do |rel|
+        if rel.followee_id == @user.id
+          @is_following = true
+          @follow_rel_id = rel.id
+        end
       end
     end
+
   end
 
   private
