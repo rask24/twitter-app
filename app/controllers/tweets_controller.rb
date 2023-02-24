@@ -63,6 +63,27 @@ class TweetsController < ApplicationController
     end
   end
 
+  def destroy
+    # tweet
+    tweet = Tweet.find(params[:id])
+
+    # retweet
+    retweets = Retweet.where(tweet_id: tweet.id)
+
+    # delete tweet / retweet
+    retweets.each do |retweet|
+      retweet.destroy
+    end
+    tweet.destroy
+
+    # redirect
+    if tweet_params[:from] == 'tweets_index'
+      redirect_to root_path
+    elsif tweet_params[:from] == 'users_show'
+      redirect_to user_path(tweet_params[:page])
+    end
+  end
+
   private
   def tweet_params
     params.require(:tweet).permit(:text)
