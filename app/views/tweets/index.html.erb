@@ -2,33 +2,62 @@
   <%= link_to 'Twitter', root_path %>
 </h1>
 <% if user_signed_in? %>
-  <h2>
+  <h3>
     logged in user: 
     <%= link_to current_user.name, user_path(current_user) %>
     (
     <%= current_user.id %>
     )
-  </h2>
+  </h3>
   <%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: 'delete'} %>
+  <%= form_with model: @new_tweet do |f| %>
+    <div>
+      <%= f.text_field :text %>
+    </div>
+    <div>
+      <%= f.submit %>
+    </div>
+    <div>
+      <% if @new_tweet.errors.any? %>
+        <%= @new_tweet.errors.messages[:text][0]%>
+      <% end %>
+    </div>
+  <% end %>
+  <%= turbo_frame_tag :tweets_list do %>
+    <ul>
+      <% @tweets.each do |tweet| %>
+        <li>
+          <% if tweet[:is_retweet] %>
+            <strong>
+              retweeted by <%= tweet[:retweet_user_name] %>
+            </strong>
+            <br>
+          <% end %>
+          <%= link_to tweet[:content].user.name, user_path(tweet[:content].user) %>
+          <%= tweet[:content].text %>
+          <%= tweet[:content].created_at.strftime('%m/%d %H:%M') %>
+          <% if tweet[:is_retweeted] %>
+            <br>
+            <strong>
+              retweeted
+            </strong>
+          <% else %>
+            <%= button_to 'Retweet',
+              retweets_path,
+              method: :post,
+              params: {
+                user_id: current_user.id,
+                tweet_id: tweet[:content].id,
+                from: 'tweets_index',
+              }
+            %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 <% else %>
   <%= link_to 'Login', new_user_session_path %>
-<% end %>
-<%= turbo_frame_tag :tweets_list do %>
-  <% if user_signed_in? %>
-    <%= form_with model: @new_tweet do |f| %>
-      <div>
-        <%= f.text_field :text %>
-      </div>
-      <div>
-        <%= f.submit %>
-      </div>
-      <div>
-        <% if @new_tweet.errors.any? %>
-          <%= @new_tweet.errors.messages[:text][0]%>
-        <% end %>
-      </div>
-    <% end %>
-  <% end %>
   <ul>
     <% @tweets.each do |tweet| %>
       <li>
