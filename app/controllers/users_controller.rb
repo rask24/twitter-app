@@ -43,14 +43,14 @@ class UsersController < ApplicationController
           {
             content: tweet,
             is_retweet: false,
-            is_retweeted: Retweet.where(user_id: current_user.id, tweet_id: tweet.id).exists?
+            retweet_info: Retweet.where(user_id: current_user.id, tweet_id: tweet.id)
           }
         elsif tweet.class.name == 'Retweet'
           retweet = Tweet.find(tweet.tweet_id)
           {
             content: retweet,
             is_retweet: true,
-            is_retweeted: Retweet.where(user_id: current_user.id, tweet_id: retweet.id).exists?
+            retweet_info: Retweet.where(user_id: current_user.id, tweet_id: retweet.id)
           }
         end
       end

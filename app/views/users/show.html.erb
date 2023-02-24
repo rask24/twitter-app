@@ -45,17 +45,31 @@
     <% @tweets.each do |tweet| %>
       <li>
         <% if tweet[:is_retweet] %>
-          <em>retweet</em>
+          <strong>retweet</strong>
           <br>
         <% end %>
         <%= link_to tweet[:content].user.name, user_path(tweet[:content].user) %>
         <%= tweet[:content].text %>
         <%= tweet[:content].created_at.strftime('%m/%d %H:%M') %>
-        <% if tweet[:is_retweeted] %>
-          <br>
-          <strong>
-            retweeted
-          </strong>
+        <% if tweet[:content].user_id == current_user.id %>
+          <%= button_to 'Delete Tweet',
+            tweet_path(tweet[:content].id),
+            method: :delete,
+            params: {
+              from: 'users_show',
+              page: @user.id
+            }
+          %>
+        <% end %>
+        <% if tweet[:retweet_info].exists? %>
+          <%= button_to 'Delete Retweet',
+            retweet_path(tweet[:retweet_info].first.id),
+            method: :delete,
+            params: {
+              from: 'users_show',
+              page: @user.id
+            }
+          %>
         <% else %>
           <%= button_to 'Retweet',
             retweets_path,
