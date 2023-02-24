@@ -7,9 +7,6 @@ class FollowsController < ApplicationController
 
   def destroy
     @follow_rel = Follow.find(follow_params[:id])
-    puts '+++++++++++++++++++++++'
-    p follow_params
-    puts '+++++++++++++++++++++++'
     if @follow_rel.destroy
       redirect_to user_path(follow_params[:user_id]), status: :see_other
     end

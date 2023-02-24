@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   resources :tweets
   resources :users
   resources :follows
+  resources :retweets
 
 end
