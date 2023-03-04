@@ -1,0 +1,17 @@
+<% if user_signed_in? %>
+  <% if @is_others and @following_info.exists? %>
+    <%= button_to 'Unfollow',
+      follow_path(@following_info[0].id),
+      method: :delete,
+      params: { user_id: @user.id}
+    %>
+  <% elsif @is_others %>
+    <%= button_to 'Follow',
+      follows_path,
+      method: :post,
+      params: { follower_id: current_user.id, followee_id: @user.id }
+    %>
+  <% end %>
+<% else %>
+  <%= button_to 'follow(disable)' %>
+<% end %>

@@ -1,0 +1,42 @@
+<li>
+  <% if !tweet[:retweet_info].nil? %>
+    <strong>retweeted by <%= tweet[:retweet_info].user.name %></strong>
+    <br>
+  <% end %>
+  <%= link_to tweet[:content].user.name, user_path(tweet[:content].user) %>
+  <%= tweet[:content].text %>
+  <%= tweet[:content].created_at.strftime('%m/%d %H:%M') %>
+  <% if user_signed_in? %>
+    <% if tweet[:content].user_id == current_user.id %>
+      <%= button_to 'Delete Tweet',
+        tweet_path(tweet[:content].id),
+        method: :delete,
+        params: {
+          from: tweet[:current_page],
+          page_id: tweet[:page_id]
+        }
+      %>
+    <% end %>
+  <% end %>
+  <% if tweet[:has_retweet] %>
+    <%= button_to 'Delete Retweet',
+      retweet_path(tweet[:content].retweets.find_by(user_id: current_user.id).id),
+      method: :delete,
+      params: {
+        from: tweet[:current_page],
+        page_id: tweet[:page_id]
+      }
+    %>
+  <% else %>
+    <%= button_to 'Retweet',
+      retweets_path,
+      method: :post,
+      params: {
+        user_id: current_user.id,
+        tweet_id: tweet[:content].id,
+        from: tweet[:current_page],
+        page_id: tweet[:page_id],
+      }
+    %>
+  <% end %>
+</li>

@@ -1,0 +1,13 @@
+<%= form_with model: @new_tweet do |f| %>
+  <div>
+    <%= f.text_field :text %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+  <div>
+    <% if @new_tweet.errors.any? %>
+      <%= @new_tweet.errors.messages[:text][0]%>
+    <% end %>
+  </div>
+<% end %>

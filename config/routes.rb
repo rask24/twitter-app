@@ -8,7 +8,11 @@ Rails.application.routes.draw do
 
   root "tweets#index"
 
-  resources :tweets
+  resources :tweets do
+    collection do
+      get 'explore'
+    end
+  end
   resources :users
   resources :follows
   resources :retweets
