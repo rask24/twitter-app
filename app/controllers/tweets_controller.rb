@@ -1,37 +1,27 @@
 class TweetsController < ApplicationController
   def index
     if user_signed_in?
-      # followee tweets
-      followees_id = Follow.where(follower_id: current_user.id).map do |follow_rel|
-        follow_rel.followee_id
-      end
-      followee_tweets = Tweet.where(user_id: followees_id)
+      # tweetws / retweets
+      followee_tweets = current_user.follower_rels.map(&:followee).map(&:tweets).flatten
+      followee_retweets = current_user.follower_rels.map(&:followee).map(&:retweets).flatten
 
-      # followee retweets
-      followee_retweets = Retweet.where(user_id: followees_id).to_a
-
-      # all tweets to display
+      # all tweets / retweets
       @tweets = followee_tweets + followee_retweets
       @tweets.sort_by! do |tweet|
         tweet.created_at
       end
       @tweets.reverse!
-      @tweets.map! do |tweet|
-        if tweet.class.name == 'Tweet'
-          {
-            content: tweet,
-            is_retweet: false,
-            is_retweeted: Retweet.where(tweet_id: tweet.id, user_id: current_user.id).exists?
-          }
-        elsif tweet.class.name == 'Retweet'
-          retweet = Tweet.find(tweet.tweet_id)
-          {
-            content: retweet,
-            is_retweet: true,
-            retweet_user_name: User.find(tweet.user_id).name,
-            is_retweeted: Retweet.where(tweet_id: retweet.id, user_id: current_user.id).exists?
-          }
-        end
+      @tweets.map! do |tw|
+        is_retweet = tw.class.name == 'Retweet'
+        rt = is_retweet ? tw : nil
+        tw = is_retweet ? rt.tweet : tw
+        {
+          content: tw,
+          retweet_info: rt,
+          has_retweet: tw.retweets.where(user_id: current_user.id).exists?,
+          current_page: 'tweets_index',
+          page_id: nil,
+        }
       end
 
       # new tweet / retweet
@@ -39,8 +29,12 @@ class TweetsController < ApplicationController
       @new_retweet = Retweet.new
 
     else
-      @tweets = Tweet.order(created_at: :desc).first(5)
+      redirect_to explore_tweets_path
     end
+  end
+
+  def explore
+      @tweets = Tweet.order(created_at: :desc).first(5)
   end
 
   def create
@@ -49,16 +43,28 @@ class TweetsController < ApplicationController
     if @new_tweet.save
       redirect_to root_path
     else
-      followees_id = Follow.where(follower_id: current_user.id).map do |followee|
-        followee.followee_id
+      followee_tweets = current_user.follower_rels.map(&:followee).map(&:tweets).flatten
+      followee_retweets = current_user.follower_rels.map(&:followee).map(&:retweets).flatten
+     @tweets = followee_tweets + followee_retweets
+      @tweets.sort_by! do |tweet|
+        tweet.created_at
       end
-      @tweets = Tweet.where(user_id: followees_id).order(created_at: :desc)
-      @followees = User.where(id: followees_id).order(created_at: :desc)
+      @tweets.reverse!
+      @tweets.map! do |tw|
+        is_retweet = tw.class.name == 'Retweet'
+        rt = is_retweet ? tw : nil
+        tw = is_retweet ? rt.tweet : tw
+        {
+          content: tw,
+          retweet_info: rt,
+          has_retweet: rt.nil? ?
+            false : tw.retweets.where(user_id: current_user.id).exists?,
+          current_page: 'tweets_index',
+          page_id: nil,
+        }
+      end
       @new_tweet = Tweet.new
       @new_retweet = Retweet.new
-      @is_retweeteds = @tweets.map do |tweet|
-        Retweet.where(user_id: current_user.id, tweet_id: tweet.id).exists?
-      end
       render 'index', status: :unprocessable_entity
     end
   end
@@ -80,12 +86,12 @@ class TweetsController < ApplicationController
     if tweet_params[:from] == 'tweets_index'
       redirect_to root_path
     elsif tweet_params[:from] == 'users_show'
-      redirect_to user_path(tweet_params[:page])
+      redirect_to user_path(tweet_params[:page_id])
     end
   end
 
   private
   def tweet_params
-    params.require(:tweet).permit(:text)
+    params.require(:tweet).permit(:text, :page_id, :from)
   end
 end

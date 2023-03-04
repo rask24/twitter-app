@@ -1,75 +1,45 @@
 class UsersController < ApplicationController
   def show
-    # user info
+    # user / user tweets
     @user = User.find(user_params[:id])
-    user_tweets = Tweet.where(user_id: user_params[:id]).order(created_at: :desc)
+    user_tweets = @user.tweets
 
-    # followee info
-    followees_id = Follow.where(follower_id: @user.id).map do |followee|
-      followee.followee_id
-    end
-    @followees = User.where(id: followees_id).order(created_at: :desc)
+    # followees / followers
+    @followees = @user.follower_rels.map(&:followee)
+    @followers = @user.followee_rels.map(&:follower)
 
-    # follower info
-    followers_id = Follow.where(followee_id: @user.id).map do |follower|
-      follower.follower_id
-    end
-    @followers = User.where(id: followers_id).order(created_at: :desc)
+    # new follow relation
     @new_follow = Follow.new
 
     # follow relation
     if user_signed_in?
       @is_others = current_user.id != @user.id
-      @is_following = false
-      @follow_rel_id = nil
-      Follow.where(follower_id: current_user.id).each do |rel|
-        if rel.followee_id == @user.id
-          @is_following = true
-          @follow_rel_id = rel.id
-        end
-      end
+      @following_info = current_user.follower_rels.where(followee_id: @user.id)
     end
-    
+
     # retweet
-    user_retweets = Retweet.where(user_id: @user.id)
+    user_retweets = @user.retweets
+
+    # all tweets / retweets
     @tweets = user_tweets.to_a + user_retweets.to_a
     @tweets.sort_by! do |item|
       item.created_at
     end
     @tweets.reverse!
-    if user_signed_in?
-      @tweets.map! do |tweet|
-        if tweet.class.name == 'Tweet'
-          {
-            content: tweet,
-            is_retweet: false,
-            retweet_info: Retweet.where(user_id: current_user.id, tweet_id: tweet.id)
-          }
-        elsif tweet.class.name == 'Retweet'
-          retweet = Tweet.find(tweet.tweet_id)
-          {
-            content: retweet,
-            is_retweet: true,
-            retweet_info: Retweet.where(user_id: current_user.id, tweet_id: retweet.id)
-          }
-        end
-      end
-    else
-      @tweets.map! do |tweet|
-        if tweet.class.name == 'Tweet'
-          {
-            content: tweet,
-            is_retweet: false
-          }
-        elsif tweet.class.name == 'Retweet'
-          retweet = Tweet.find(tweet.tweet_id)
-          {
-            content: retweet,
-            is_retweet: true
-          }
-        end
-      end
+    @tweets.map! do |tw|
+      is_retweet = tw.class.name == 'Retweet'
+      rt = is_retweet ? tw : nil
+      tw = is_retweet ? rt.tweet : tw
+      {
+        content: tw,
+        retweet_info: rt,
+        has_retweet: user_signed_in? ?
+          tw.retweets.where(user_id: current_user.id).exists? : false,
+        current_page: 'users_show',
+        page_id: @user.id,
+      }
     end
+
 
   end
 
