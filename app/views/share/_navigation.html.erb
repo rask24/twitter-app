@@ -1,15 +1,45 @@
-<h1>
-  <%= link_to 'Twitter', root_path %>
-</h1>
-<% if user_signed_in? %>
-  <h3>
-    logged in user: 
-    <%= link_to current_user.name, user_path(current_user) %>
-    (
-    <%= current_user.id %>
-    )
-  </h3>
-  <%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: 'delete'} %>
-<% else%>
-  <%= link_to 'Login', new_user_session_path %>
-<% end %>
+<div class="flex h-full flex-col justify-between">
+  <div>
+    <h1 class="p-3">
+      <%= link_to 'Twitter', root_path %>
+    </h1>
+    <ul class="text-xl">
+      <%= render partial: 'share/navigation_item', locals: { nav_item: 'ホーム', path: root_path, icon: 'home.svg' }%>
+      <%= render partial: 'share/navigation_item', locals: { nav_item: '話題を検索', path: explore_tweets_path, icon: 'hash.svg' }%>
+      <% if user_signed_in? %>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: '通知', path: '#', icon: 'bell.svg' }%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'メッセージ' , path: '#', icon: 'mail.svg'}%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'ブックマーク' , path: '#', icon: 'ribbon.svg'}%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'Twitter Blue' , path: '#', icon: 'layout.svg'}%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'プロフィール' , path: user_path(current_user) , icon: 'person.svg'}%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'もっと見る' , path: '#', icon: 'more.svg'}%>
+      <% end %>
+    </ul>
+    <% if user_signed_in? %>
+      <h3 class="text-xl p-3">ツイートする</h3>
+    <% end %>
+  </div>
+  <div>
+    <% if user_signed_in? %>
+      <%= link_to user_path(current_user) do %>
+        <div class="flex p-3">
+          <div class="h-12 w-12 px-1 mr-2">
+            <%= image_tag 'default_user.png' %>
+          </div>
+          <div>
+            <span class="font-bold"><%= current_user.name %></span>
+            <br>
+            <span class="text-gray-500">@<%= current_user.id %></span>
+          </div>
+        </div>
+      <% end %>
+      <div class="px-4 py-2">
+        <%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: 'delete'} %>
+      </div>
+    <% else %>
+      <div class="px-4 py-2">
+        <%= link_to 'Login', new_user_session_path %>
+      </div>
+    <% end %>
+  </div>
+</div>
