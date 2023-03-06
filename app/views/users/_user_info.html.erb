@@ -1,14 +1,38 @@
-<h2><%= @user.name %></h2>
-<ul>
-  <h3>Following <%= @followees.count %></h3>
+<h2 class="text-lg font-bold p-3">
+  <%= link_to '←', :back %>
+  <%= @user.name %>
+</h2>
+<h2 class="text-lg font-bold p-3">
+  Header
+</h2>
+<div class="flex justify-between">
+  <div class="p-3 h-40 w-40">
+    <%= image_tag 'default_user.png' %>
+  </div>
+  <h2 class="text-lg font-bold p-3">
+    <%= render partial: 'user_follow_button' %>
+  </h2>
+</div>
+
+<h2 class="text-lg font-bold px-3">
+  <%= @user.name %>
+</h2>
+<h3 class="text-gray-500 px-3">
+  @<%= @user.id %>
+</h3>
+
+<ul class="p-3">
+  <span class="text-bold"><%= @followees.count %></span>
+  <span class="text-gray-500">フォロー中</span>
   <% @followees.each do |followee| %>
     <li>
       <%= link_to followee.name, user_path(followee) %>
     </li>
   <% end %>
 </ul>
-<ul>
-  <h3>Follower <%= @followers.count %></h3>
+<ul class="p-3">
+  <span class="text-bold"><%= @followers.count %></span>
+  <span class="text-gray-500">フォロワー</span>
   <% @followers.each do |follower| %>
     <li>
       <%= link_to follower.name, user_path(follower) %>

@@ -1,4 +1,14 @@
-<%= render partial: 'share/navigation' %>
-<%= render partial: 'user_info' %>
-<%= render partial: 'user_follow_button' %>
-<%= render partial: 'user_tweets' %>
+<div class="container h-screen mx-auto flex justify-center">
+  <div class="basis-3/12 flex justify-end">
+    <div class="px-4">
+      <%= render partial: 'share/navigation' %>
+    </div>
+  </div>
+  <div class="basis-6/12 border-x">
+    <%= render partial: 'user_info' %>
+    <%= render partial: 'user_tweets' %>
+  </div>
+  <div class="basis-3/12">
+    <%= render partial: 'share/right_sidebar' %>
+  </div>
+</div>

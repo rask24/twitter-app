@@ -11,6 +11,8 @@
       method: :post,
       params: { follower_id: current_user.id, followee_id: @user.id }
     %>
+  <% else %>
+    <%= button_to 'Settings' %>
   <% end %>
 <% else %>
   <%= button_to 'follow(disable)' %>

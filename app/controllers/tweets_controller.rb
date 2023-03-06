@@ -34,7 +34,16 @@ class TweetsController < ApplicationController
   end
 
   def explore
-      @tweets = Tweet.order(created_at: :desc).first(5)
+      @tweets = Tweet.order(created_at: :desc).first(20)
+      @tweets.map! do |tw|
+        {
+          content: tw,
+          retweet_info: nil,
+          has_retweet: false,
+          current_page: 'tweets_explore',
+          page_id: nil
+        }
+      end
   end
 
   def create

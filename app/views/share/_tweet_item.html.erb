@@ -1,42 +1,71 @@
-<li>
-  <% if !tweet[:retweet_info].nil? %>
-    <strong>retweeted by <%= tweet[:retweet_info].user.name %></strong>
-    <br>
-  <% end %>
-  <%= link_to tweet[:content].user.name, user_path(tweet[:content].user) %>
-  <%= tweet[:content].text %>
-  <%= tweet[:content].created_at.strftime('%m/%d %H:%M') %>
-  <% if user_signed_in? %>
-    <% if tweet[:content].user_id == current_user.id %>
-      <%= button_to 'Delete Tweet',
-        tweet_path(tweet[:content].id),
-        method: :delete,
-        params: {
-          from: tweet[:current_page],
-          page_id: tweet[:page_id]
-        }
-      %>
+<li class="border-t px-3 py-2">
+  <div class="text-gray-500 pb-1">
+    <% if !tweet[:retweet_info].nil? %>
+      <%= link_to user_path(tweet[:retweet_info].user), class: "hover:underline" do %>
+        <%= tweet[:retweet_info].user.name %>
+        さんがリツイートしました
+      <% end %>
     <% end %>
-  <% end %>
-  <% if tweet[:has_retweet] %>
-    <%= button_to 'Delete Retweet',
-      retweet_path(tweet[:content].retweets.find_by(user_id: current_user.id).id),
-      method: :delete,
-      params: {
-        from: tweet[:current_page],
-        page_id: tweet[:page_id]
-      }
-    %>
-  <% else %>
-    <%= button_to 'Retweet',
-      retweets_path,
-      method: :post,
-      params: {
-        user_id: current_user.id,
-        tweet_id: tweet[:content].id,
-        from: tweet[:current_page],
-        page_id: tweet[:page_id],
-      }
-    %>
-  <% end %>
+  </div>
+  <div class="flex">
+    <div class="mr-3 h-12 w-12">
+      <%= link_to user_path(tweet[:content].user) do %>
+        <%= image_tag 'default_user.png' %>
+      <% end %>
+    </div>
+    <div>
+      <%= link_to tweet[:content].user.name, user_path(tweet[:content].user), class: "text-bold text-lg hover:underline" %>
+      <span class="text-gray-500">
+        @<%= tweet[:content].user_id %>
+      </span>
+      <%= tweet[:content].created_at.strftime('%m/%d %H:%M') %>
+      <div>
+        <%= tweet[:content].text %>
+      </div>
+      <% if tweet[:has_retweet] %>
+        <div class="mt-2">
+          <%= button_to retweet_path(tweet[:content].retweets.find_by(user_id: current_user.id).id),
+            method: :delete,
+            params: {
+              from: tweet[:current_page],
+              page_id: tweet[:page_id]
+            } do
+          %>
+            <div class="h-4 w-4">
+              <%= embedded_svg 'retweet.svg', class: 'fill-green-500' %>
+            </div>
+          <% end %>
+        </div>
+      <% elsif user_signed_in? %>
+        <div class="mt-2">
+          <%= button_to retweets_path,
+            method: :post,
+            params: {
+              user_id: current_user.id,
+              tweet_id: tweet[:content].id,
+              from: tweet[:current_page],
+              page_id: tweet[:page_id],
+            } do
+          %>
+            <div class="h-4 w-4">
+              <%= embedded_svg 'retweet.svg', class: 'fill-gray-600' %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <% if user_signed_in? %>
+        <% if tweet[:content].user_id == current_user.id %>
+          <%= button_to tweet_path(tweet[:content].id),
+            method: :delete,
+            params: {
+              from: tweet[:current_page],
+              page_id: tweet[:page_id]
+            } do
+          %>
+            <%= embedded_svg 'trash.svg' %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </li>

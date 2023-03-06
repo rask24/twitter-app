@@ -1,4 +1,7 @@
-<%= render partial: 'tweet_form' %>
+<h2 class="text-lg font-bold p-3">ホーム</h2>
+<div class="border-t px-3 py-1">
+  <%= render partial: 'tweet_form' %>
+</div>
 <%= turbo_frame_tag :tweets_list do %>
   <ul>
     <% @tweets.each do |tweet| %>
