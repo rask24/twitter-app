@@ -1,26 +1,48 @@
 <li class="border-t px-3 py-2">
-  <div class="text-gray-500 pb-1">
-    <% if !tweet[:retweet_info].nil? %>
+  <% if !tweet[:retweet_info].nil? %>
+    <div class="flex text-gray-500 pb-1">
+      <div class="flex justify-end h-6 w-11 mr-3">
+        <%= embedded_svg 'retweet.svg', class: "fill-gray-500" %>
+      </div>
       <%= link_to user_path(tweet[:retweet_info].user), class: "hover:underline" do %>
-        <%= tweet[:retweet_info].user.name %>
-        さんがリツイートしました
+        <% if tweet[:retweet_info].user.id == current_user.id %>
+          <p>リツイート済み</p>
+        <% else %>
+          <p>
+            <%= tweet[:retweet_info].user.name %>
+            さんがリツイートしました
+          </p>
+        <% end %>
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
   <div class="flex">
     <div class="mr-3 h-12 w-12">
       <%= link_to user_path(tweet[:content].user) do %>
         <%= image_tag 'default_user.png' %>
       <% end %>
     </div>
-    <div>
-      <%= link_to tweet[:content].user.name, user_path(tweet[:content].user), class: "text-bold text-lg hover:underline" %>
+    <div class="w-full">
+      <%= link_to tweet[:content].user.name, user_path(tweet[:content].user), class: "font-bold text-lg hover:underline" %>
       <span class="text-gray-500">
         @<%= tweet[:content].user_id %>
+        <%= tweet[:content].created_at.strftime('%m/%d %H:%M') %>
       </span>
-      <%= tweet[:content].created_at.strftime('%m/%d %H:%M') %>
-      <div>
-        <%= tweet[:content].text %>
+      <div class=
+        <%= from == 'tweets_show' ? "" :
+          "hover:bg-gray-100 active:bg-gray-200"
+        %>
+      >
+        <%= button_to tweet_path(tweet[:content]),
+          method: :get,
+          disabled: from == 'tweets_show',
+          class: "w-full text-left",
+          params: tweet[:retweet_info].nil? ? {} :{
+            retweet_id: tweet[:retweet_info],
+          } do
+        %>
+          <%= tweet[:content].text %>
+        <% end %>
       </div>
       <% if tweet[:has_retweet] %>
         <div class="mt-2">
@@ -28,7 +50,9 @@
             method: :delete,
             params: {
               from: tweet[:current_page],
-              page_id: tweet[:page_id]
+              user_id: tweet[:content].user_id,
+              tweet_id: tweet[:content].id,
+              retweet_id: tweet[:retweet_info],
             } do
           %>
             <div class="h-4 w-4">
@@ -41,14 +65,14 @@
           <%= button_to retweets_path,
             method: :post,
             params: {
-              user_id: current_user.id,
+              user_id: tweet[:content].user_id,
               tweet_id: tweet[:content].id,
               from: tweet[:current_page],
-              page_id: tweet[:page_id],
+              retweet_id: tweet[:retweet_info],
             } do
           %>
             <div class="h-4 w-4">
-              <%= embedded_svg 'retweet.svg', class: 'fill-gray-600' %>
+              <%= embedded_svg 'retweet.svg', class: "fill-gray-600 hover:fill-green-300" %>
             </div>
           <% end %>
         </div>
@@ -59,7 +83,7 @@
             method: :delete,
             params: {
               from: tweet[:current_page],
-              page_id: tweet[:page_id]
+              user_id: current_user.id
             } do
           %>
             <%= embedded_svg 'trash.svg' %>

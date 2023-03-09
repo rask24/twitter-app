@@ -1,6 +1,6 @@
 <h2 class="text-lg font-bold p-3">話題を検索</h2>
 <ul>
   <% @tweets.each do |tweet| %>
-    <%= render partial: 'share/tweet_item', locals: { tweet: tweet } %>
+    <%= render partial: 'share/tweet_item', locals: { tweet: tweet, from: 'tweets_explore' } %>
   <% end %>
 </ul>

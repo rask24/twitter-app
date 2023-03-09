@@ -1,6 +1,6 @@
 <h3>Tweets</h3>
 <ul>
   <% @tweets.each do |tweet| %>
-    <%= render partial: 'share/tweet_item', locals: { tweet: tweet } %>
+    <%= render partial: 'share/tweet_item', locals: { tweet: tweet, from: 'user_show' } %>
   <% end %>
 </ul>

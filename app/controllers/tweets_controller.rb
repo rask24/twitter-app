@@ -20,7 +20,6 @@ class TweetsController < ApplicationController
           retweet_info: rt,
           has_retweet: tw.retweets.where(user_id: current_user.id).exists?,
           current_page: 'tweets_index',
-          page_id: nil,
         }
       end
 
@@ -39,9 +38,8 @@ class TweetsController < ApplicationController
         {
           content: tw,
           retweet_info: nil,
-          has_retweet: false,
+          has_retweet: user_signed_in? ? tw.retweets.where(user_id: current_user.id).exists? : false,
           current_page: 'tweets_explore',
-          page_id: nil
         }
       end
   end
@@ -66,10 +64,9 @@ class TweetsController < ApplicationController
         {
           content: tw,
           retweet_info: rt,
-          has_retweet: rt.nil? ?
-            false : tw.retweets.where(user_id: current_user.id).exists?,
+          # has_retweet: rt.nil? ? false : tw.retweets.where(user_id: current_user.id).exists?,
+          has_retweet: tw.retweets.where(user_id: current_user.id).exists?,
           current_page: 'tweets_index',
-          page_id: nil,
         }
       end
       @new_tweet = Tweet.new
@@ -78,9 +75,20 @@ class TweetsController < ApplicationController
     end
   end
 
+  def show
+    tw = Tweet.find(detail_params[:id])
+    rt = detail_params[:retweet_id].nil? ? nil : Retweet.find(detail_params[:retweet_id])
+    @tweet = {
+      content: tw,
+      retweet_info: rt,
+      has_retweet: tw.retweets.where(user_id: current_user.id).exists?,
+      current_page: 'tweets_show',
+    }
+  end
+
   def destroy
     # tweet
-    tweet = Tweet.find(params[:id])
+    tweet = Tweet.find(detail_params[:id])
 
     # retweet
     retweets = Retweet.where(tweet_id: tweet.id)
@@ -92,15 +100,21 @@ class TweetsController < ApplicationController
     tweet.destroy
 
     # redirect
-    if tweet_params[:from] == 'tweets_index'
+    if detail_params[:from] == 'tweets_index'
       redirect_to root_path
-    elsif tweet_params[:from] == 'users_show'
-      redirect_to user_path(tweet_params[:page_id])
+    elsif detail_params[:from] == 'tweets_show'
+      redirect_to user_path(detail_params[:user_id])
+    elsif detail_params[:from] == 'users_show'
+    redirect_to user_path(detail_params[:user_id])
     end
   end
 
   private
   def tweet_params
-    params.require(:tweet).permit(:text, :page_id, :from)
+    params.require(:tweet).permit(:text)
+  end
+
+  def detail_params
+    params.permit(:id, :user_id, :from, :retweet_id)
   end
 end
