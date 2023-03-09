@@ -35,8 +35,7 @@ class UsersController < ApplicationController
         retweet_info: rt,
         has_retweet: user_signed_in? ?
           tw.retweets.where(user_id: current_user.id).exists? : false,
-        current_page: 'users_show',
-        page_id: @user.id,
+        current_page: 'users_show_' + @user.id.to_s,
       }
     end
 

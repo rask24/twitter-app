@@ -1,18 +1,20 @@
 <div class="flex h-full flex-col justify-between">
   <div>
-    <h1 class="p-3">
-      <%= link_to 'Twitter', root_path %>
+    <h1 class="h-14 w-14 p-3">
+      <%= link_to  root_path do %>
+        <%= image_tag 'twitter' %>
+      <% end %>
     </h1>
     <ul class="text-xl">
-      <%= render partial: 'share/navigation_item', locals: { nav_item: 'ホーム', path: root_path, icon: 'home.svg' }%>
-      <%= render partial: 'share/navigation_item', locals: { nav_item: '話題を検索', path: explore_tweets_path, icon: 'hash.svg' }%>
+      <%= render partial: 'share/navigation_item', locals: { nav_item: 'ホーム', path: root_path, icon: 'home' }%>
+      <%= render partial: 'share/navigation_item', locals: { nav_item: '話題を検索', path: explore_tweets_path, icon: 'hash' }%>
       <% if user_signed_in? %>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: '通知', path: '#', icon: 'bell.svg' }%>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: 'メッセージ' , path: '#', icon: 'mail.svg'}%>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: 'ブックマーク' , path: '#', icon: 'ribbon.svg'}%>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: 'Twitter Blue' , path: '#', icon: 'layout.svg'}%>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: 'プロフィール' , path: user_path(current_user) , icon: 'person.svg'}%>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: 'もっと見る' , path: '#', icon: 'more.svg'}%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: '通知', path: '#', icon: 'bell' }%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'メッセージ' , path: '#', icon: 'mail'}%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'ブックマーク' , path: '#', icon: 'ribbon'}%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'Twitter Blue' , path: '#', icon: 'layout'}%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'プロフィール' , path: user_path(current_user) , icon: 'person'}%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'もっと見る' , path: '#', icon: 'more'}%>
       <% end %>
     </ul>
     <% if user_signed_in? %>

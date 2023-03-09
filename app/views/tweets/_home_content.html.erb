@@ -3,9 +3,9 @@
   <%= render partial: 'tweet_form' %>
 </div>
 <%= turbo_frame_tag :tweets_list do %>
-  <ul>
-    <% @tweets.each do |tweet| %>
-      <%= render partial: 'share/tweet_item', locals: { tweet: tweet } %>
+    <ul>
+      <% @tweets.each do |tweet| %>
+      <%= render partial: 'share/tweet_item', locals: { tweet: tweet, from: 'tweets_index' } %>
     <% end %>
   </ul>
 <% end %>

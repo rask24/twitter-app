@@ -1,0 +1,7 @@
+<h2 class="text-lg font-bold p-3">
+  <%= link_to '←', :back %>
+  ツイート
+</h2>
+<ul>
+  <%= render partial: 'share/tweet_item', locals: { tweet: @tweet, from: 'tweets_show' } %>
+</ul>
