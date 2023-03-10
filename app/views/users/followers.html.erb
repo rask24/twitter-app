@@ -1,11 +1,11 @@
 <div class="container h-screen mx-auto flex justify-center">
   <div class="basis-3/12 flex justify-end">
     <div class="px-4">
-      <%= render partial: 'share/navigation', locals: { current_page: 'tweets_retweets' } %>
-    </div>
+      <%= render partial: 'share/navigation', locals: { current_page: 'users_followers' } %>
+    </div> 
   </div>
   <div class="basis-6/12 border-x">
-    <%= render partial: 'share/users_list', locals: { users_info: @retweet_users_info, title: 'リツイートしたユーザ' } %>
+    <%= render partial: 'share/users_list', locals: { users_info: @followers_info, title: 'フォロワー' } %>
   </div>
   <div class="basis-3/12">
     <%= render partial: 'share/right_sidebar' %>

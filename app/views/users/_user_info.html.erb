@@ -21,21 +21,17 @@
   @<%= @user.id %>
 </h3>
 
-<ul class="p-3">
-  <span class="text-bold"><%= @followees.count %></span>
-  <span class="text-gray-500">フォロー中</span>
-  <% @followees.each do |followee| %>
-    <li>
-      <%= link_to followee.name, user_path(followee) %>
-    </li>
+<div class="flex">
+  <%= link_to followees_user_path(@user.id) do %>
+    <div class="p-3 hover:underline duration-150">
+      <span class="font-bold"><%= @followees.count %></span>
+      <span class="text-gray-500">フォロー中</span>
+    </div>
   <% end %>
-</ul>
-<ul class="p-3">
-  <span class="text-bold"><%= @followers.count %></span>
-  <span class="text-gray-500">フォロワー</span>
-  <% @followers.each do |follower| %>
-    <li>
-      <%= link_to follower.name, user_path(follower) %>
-    </li>
+  <%= link_to followers_user_path(@user.id) do %>
+    <div class="p-3 hover:underline duration-150">
+      <span class="font-bold"><%= @followers.count %></span>
+      <span class="text-gray-500">フォロワー</span>
+    </div>
   <% end %>
-</ul>
+</div>

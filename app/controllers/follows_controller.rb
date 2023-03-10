@@ -5,6 +5,10 @@ class FollowsController < ApplicationController
         redirect_to user_path(follow_params[:followee_id])
       elsif follow_params[:from].start_with?('tweets_retweets')
         redirect_to retweets_tweet_path(follow_params[:from].delete('^0-9'))
+      elsif follow_params[:from].start_with?('users_followee')
+        redirect_to followees_user_path(follow_params[:from].delete('^0-9'))
+      elsif follow_params[:from].start_with?('users_follower')
+        redirect_to followers_user_path(follow_params[:from].delete('^0-9'))
       end
     end
   end
@@ -16,6 +20,10 @@ class FollowsController < ApplicationController
         redirect_to user_path(follow_params[:from].delete('^0-9')), status: :see_other
       elsif follow_params[:from].start_with?('tweets_retweets')
         redirect_to retweets_tweet_path(follow_params[:from].delete('^0-9'))
+      elsif follow_params[:from].start_with?('users_followee')
+        redirect_to followees_user_path(follow_params[:from].delete('^0-9'))
+      elsif follow_params[:from].start_with?('users_follower')
+        redirect_to followers_user_path(follow_params[:from].delete('^0-9'))
       end
     end
   end

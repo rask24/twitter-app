@@ -18,7 +18,7 @@ class TweetsController < ApplicationController
         {
           content: tw,
           retweet_info: rt,
-          has_retweet: tw.retweets.where(user_id: current_user.id).exists?,
+          has_retweet: user_signed_in? ? tw.retweets.where(user_id: current_user.id).exists? : false,
           retweet_count: tw.retweets.count,
           current_page: 'tweets_index',
         }
@@ -83,7 +83,7 @@ class TweetsController < ApplicationController
     @tweet = {
       content: tw,
       retweet_info: rt,
-      has_retweet: tw.retweets.where(user_id: current_user.id).exists?,
+      has_retweet: user_signed_in? ? tw.retweets.where(user_id: current_user.id).exists? : false,
       retweet_count: tw.retweets.count,
       current_page: 'tweets_show',
     }
