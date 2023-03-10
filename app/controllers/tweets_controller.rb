@@ -19,6 +19,7 @@ class TweetsController < ApplicationController
           content: tw,
           retweet_info: rt,
           has_retweet: tw.retweets.where(user_id: current_user.id).exists?,
+          retweet_count: tw.retweets.count,
           current_page: 'tweets_index',
         }
       end
@@ -39,6 +40,7 @@ class TweetsController < ApplicationController
           content: tw,
           retweet_info: nil,
           has_retweet: user_signed_in? ? tw.retweets.where(user_id: current_user.id).exists? : false,
+          retweet_count: tw.retweets.count,
           current_page: 'tweets_explore',
         }
       end
@@ -64,8 +66,8 @@ class TweetsController < ApplicationController
         {
           content: tw,
           retweet_info: rt,
-          # has_retweet: rt.nil? ? false : tw.retweets.where(user_id: current_user.id).exists?,
           has_retweet: tw.retweets.where(user_id: current_user.id).exists?,
+          retweet_count: tw.retweets.count,
           current_page: 'tweets_index',
         }
       end
@@ -82,6 +84,7 @@ class TweetsController < ApplicationController
       content: tw,
       retweet_info: rt,
       has_retweet: tw.retweets.where(user_id: current_user.id).exists?,
+      retweet_count: tw.retweets.count,
       current_page: 'tweets_show',
     }
   end
@@ -106,6 +109,19 @@ class TweetsController < ApplicationController
       redirect_to user_path(detail_params[:user_id])
     elsif detail_params[:from] == 'users_show'
     redirect_to user_path(detail_params[:user_id])
+    end
+  end
+
+  def retweets
+    retweets = Retweet.where(tweet_id: detail_params[:id])
+    @retweet_users_info = retweets.map do |rt|
+      following_info = user_signed_in?  ?
+        Follow.find_by(follower_id: current_user.id, followee_id: rt.user.id) : nil
+      {
+        user: rt.user,
+        following_info: following_info,
+        from: 'tweets_retweets_' + detail_params[:id].to_s,
+      }
     end
   end
 

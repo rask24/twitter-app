@@ -11,11 +11,13 @@ class UsersController < ApplicationController
     # new follow relation
     @new_follow = Follow.new
 
-    # follow relation
-    if user_signed_in?
-      @is_others = current_user.id != @user.id
-      @following_info = current_user.follower_rels.where(followee_id: @user.id)
-    end
+    # user info -> follow relation
+    following_info = user_signed_in? ? current_user.follower_rels.find_by(followee_id: @user.id) : nil
+    @user_info = {
+      user: @user,
+      following_info: following_info,
+      from: 'users_show_' + @user.id.to_s,
+    }
 
     # retweet
     user_retweets = @user.retweets
@@ -35,6 +37,7 @@ class UsersController < ApplicationController
         retweet_info: rt,
         has_retweet: user_signed_in? ?
           tw.retweets.where(user_id: current_user.id).exists? : false,
+        retweet_count: tw.retweets.count,
         current_page: 'users_show_' + @user.id.to_s,
       }
     end
