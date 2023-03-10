@@ -1,10 +1,14 @@
-<li class="p-3">
-  <%= link_to path do %>
-    <div class="flex">
-      <span class="h-8 w-8 flex px-1 mr-2">
-        <%= image_tag icon %>
-      </span>
-      <%= nav_item %>
-    </div>
-  <% end %>
+<li class="py-1">
+  <div class="p-3 rounded-full hover:bg-gray-100 duration-150">
+    <%= link_to path do %>
+      <div class="flex">
+        <span class="h-8 w-8 rounded-full flex px-1 mr-2">
+          <%= image_tag icon %>
+        </span>
+        <span class=<%= active ? "font-bold" : "" %>>
+          <%= nav_item %>
+        </span>
+      </div>
+    <% end %>
+  </div>
 </li>

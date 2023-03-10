@@ -4,7 +4,15 @@ module.exports = {
     './app/views/**/*.{html,erb}'
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        twitter: {
+          'primary': '#08a0e9',
+          'light': '#E8F5FD',
+          'dark': '#0084B4'
+        }
+      }
+    },
   },
   plugins: [],
 }

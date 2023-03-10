@@ -1,20 +1,20 @@
 <div class="flex h-full flex-col justify-between">
   <div>
-    <h1 class="h-14 w-14 p-3">
+    <h1 class="h-14 w-14 p-3 rounded-full hover:bg-twitter-light duration-150">
       <%= link_to  root_path do %>
         <%= image_tag 'twitter' %>
       <% end %>
     </h1>
     <ul class="text-xl">
-      <%= render partial: 'share/navigation_item', locals: { nav_item: 'ホーム', path: root_path, icon: 'home' }%>
-      <%= render partial: 'share/navigation_item', locals: { nav_item: '話題を検索', path: explore_tweets_path, icon: 'hash' }%>
+      <%= render partial: 'share/navigation_item', locals: { nav_item: 'ホーム', path: root_path, icon: 'home', active: current_page == 'tweets_index' }%>
+      <%= render partial: 'share/navigation_item', locals: { nav_item: '話題を検索', path: explore_tweets_path, icon: 'hash', active: current_page == 'tweets_explore' }%>
       <% if user_signed_in? %>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: '通知', path: '#', icon: 'bell' }%>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: 'メッセージ' , path: '#', icon: 'mail'}%>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: 'ブックマーク' , path: '#', icon: 'ribbon'}%>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: 'Twitter Blue' , path: '#', icon: 'layout'}%>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: 'プロフィール' , path: user_path(current_user) , icon: 'person'}%>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: 'もっと見る' , path: '#', icon: 'more'}%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: '通知', path: '#', icon: 'bell', active: false }%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'メッセージ' , path: '#', icon: 'mail', active: false }%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'ブックマーク' , path: '#', icon: 'ribbon', active: false }%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'Twitter Blue' , path: '#', icon: 'layout', active: false }%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'プロフィール' , path: user_path(current_user) , icon: 'person', active: current_page == 'users_show_current_user' }%>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'もっと見る' , path: '#', icon: 'more', active: false }%>
       <% end %>
     </ul>
     <% if user_signed_in? %>
@@ -23,18 +23,20 @@
   </div>
   <div>
     <% if user_signed_in? %>
-      <%= link_to user_path(current_user) do %>
-        <div class="flex p-3">
-          <div class="h-12 w-12 px-1 mr-2">
-            <%= image_tag 'default_user.png' %>
+      <div class="rounded-full hover:bg-gray-100 duration-150">
+        <%= link_to user_path(current_user) do %>
+          <div class="flex p-3">
+            <div class="h-12 w-12 px-1 mr-2">
+              <%= image_tag 'default_user.png' %>
+            </div>
+            <div>
+              <span class="font-bold"><%= current_user.name %></span>
+              <br>
+              <span class="text-gray-500">@<%= current_user.id %></span>
+            </div>
           </div>
-          <div>
-            <span class="font-bold"><%= current_user.name %></span>
-            <br>
-            <span class="text-gray-500">@<%= current_user.id %></span>
-          </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
       <div class="px-4 py-2">
         <%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: 'delete'} %>
       </div>
