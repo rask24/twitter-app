@@ -5,7 +5,7 @@
         <%= embedded_svg 'retweet.svg', class: "fill-gray-500" %>
       </div>
       <%= link_to user_path(tweet[:retweet_info].user), class: "hover:underline" do %>
-        <% if tweet[:retweet_info].user.id == current_user.id %>
+        <% if user_signed_in? && tweet[:retweet_info].user.id == current_user.id %>
           <p>リツイート済み</p>
         <% else %>
           <p>

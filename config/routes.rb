@@ -16,7 +16,12 @@ Rails.application.routes.draw do
       get 'retweets'
     end
   end
-  resources :users
+  resources :users do
+    member do
+      get 'followers'
+      get 'followees'
+    end
+  end
   resources :follows
   resources :retweets
 

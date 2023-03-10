@@ -41,8 +41,34 @@ class UsersController < ApplicationController
         current_page: 'users_show_' + @user.id.to_s,
       }
     end
+  end
 
+  def followers
+    # フォロワー
+    user = User.find(user_params[:id])
+    @followers_info = user.followee_rels.map do |f|
+      f_user = f.follower
+      following_info = user_signed_in? ? Follow.find_by(follower_id: current_user.id, followee_id: f_user.id) : nil
+      {
+        user: f.follower,
+        following_info: following_info,
+        from: 'users_followers_' + user.id.to_s,
+      }
+    end
+  end
 
+  def followees
+    # フォロー中
+    user = User.find(user_params[:id])
+    @followees_info = user.follower_rels.map do |f|
+      f_user = f.followee
+      following_info = user_signed_in? ? Follow.find_by(follower_id: current_user.id, followee_id: f_user.id) : nil
+      {
+        user: f.followee,
+        following_info: following_info,
+        from: 'users_followers_' + user.id.to_s,
+      }
+    end
   end
 
   private

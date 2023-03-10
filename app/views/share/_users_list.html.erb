@@ -1,0 +1,52 @@
+<h2 class="text-lg font-bold p-3">
+  <%= link_to '←', :back %>
+  <%= title %>
+</h2>
+<ul>
+  <% users_info.each do |user_info| %>
+    <li class="border-t px-3 py-2">
+      <div class="flex">
+        <div class="mr-3 h-12 w-12">
+          <%= link_to user_path(user_info[:user]) do %>
+            <%= image_tag 'default_user.png' %>
+          <% end %>
+        </div>
+        <div class="w-full flex justify-between">
+          <div>
+            <%= link_to user_info[:user].name, user_path(user_info[:user]), class: "font-bold text-lg hover:underline" %>
+            <div class="text-gray-500">
+              @<%= user_info[:user].id %>
+            </div>
+          </div>
+          <% if user_signed_in? && current_user.id != user_info[:user].id %>
+              <div class="flex items-center">
+              <% if user_info[:following_info].nil? %>
+                <%= button_to follows_path,
+                  method: :post,
+                  params: {
+                    follower_id: current_user.id,
+                    followee_id: user_info[:user].id,
+                    from: user_info[:from],
+                  } do
+                %>
+                  <div class="py-1 px-4 rounded-full font-bold text-white bg-black hover:bg-gray-800 active:bg-gray-700 duration-150">
+                    フォロー
+                  </div>
+                <% end %>
+              <% else %>
+                <%= button_to follow_path(user_info[:following_info].id),
+                  method: :delete,
+                  params: { from: user_info[:from] } do
+                %>
+                  <div class="py-1 px-4 border rounded-full font-bold hover:border-red-300 hover:bg-red-100 hover:text-red-600 active:bg-red-200 duration-150">
+                    フォロー中
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>
