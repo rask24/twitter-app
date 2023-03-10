@@ -1,0 +1,44 @@
+<h2 class="text-lg font-bold p-3">
+  <%= link_to '←', :back %>
+  リツイートしたユーザ
+</h2>
+<ul>
+  <% @retweet_users_info.each do |user_info| %>
+    <li class="border-t px-3 py-2">
+      <div class="flex">
+        <div class="mr-3 h-12 w-12">
+          <%= link_to user_path(user_info[:user]) do %>
+            <%= image_tag 'default_user.png' %>
+          <% end %>
+        </div>
+        <div class="w-full">
+          <%= link_to user_info[:user].name, user_path(user_info[:user]), class: "font-bold text-lg hover:underline" %>
+          <div class="text-gray-500">
+            @<%= user_info[:user].id %>
+          </div>
+        </div>
+        <% if user_signed_in? && current_user.id != user_info[:user].id %>
+          <% if user_info[:following_info].nil? %>
+            <%= button_to 'Follow',
+              follows_path,
+              method: :post,
+              params: {
+                follower_id: current_user.id,
+                followee_id: user_info[:user].id,
+                from: user_info[:from],
+              }
+            %>
+          <% else %>
+            <%= button_to 'Unfollow',
+              follow_path(user_info[:following_info].id),
+              method: :delete,
+              params: { from: user_info[:from] }
+            %>
+          <% end %>
+        <% else %>
+          <%= button_to 'follow(disable)', disabled: true %>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ul>

@@ -12,6 +12,9 @@ Rails.application.routes.draw do
     collection do
       get 'explore'
     end
+    member do
+      get 'retweets'
+    end
   end
   resources :users
   resources :follows

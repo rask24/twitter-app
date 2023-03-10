@@ -44,52 +44,8 @@
           <%= tweet[:content].text %>
         <% end %>
       </div>
-      <% if tweet[:has_retweet] %>
-        <div class="mt-2">
-          <%= button_to retweet_path(tweet[:content].retweets.find_by(user_id: current_user.id).id),
-            method: :delete,
-            params: {
-              from: tweet[:current_page],
-              user_id: tweet[:content].user_id,
-              tweet_id: tweet[:content].id,
-              retweet_id: tweet[:retweet_info],
-            } do
-          %>
-            <div class="h-4 w-4">
-              <%= embedded_svg 'retweet.svg', class: 'fill-green-500' %>
-            </div>
-          <% end %>
-        </div>
-      <% elsif user_signed_in? %>
-        <div class="mt-2">
-          <%= button_to retweets_path,
-            method: :post,
-            params: {
-              user_id: tweet[:content].user_id,
-              tweet_id: tweet[:content].id,
-              from: tweet[:current_page],
-              retweet_id: tweet[:retweet_info],
-            } do
-          %>
-            <div class="h-4 w-4">
-              <%= embedded_svg 'retweet.svg', class: "fill-gray-600 hover:fill-green-300" %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-      <% if user_signed_in? %>
-        <% if tweet[:content].user_id == current_user.id %>
-          <%= button_to tweet_path(tweet[:content].id),
-            method: :delete,
-            params: {
-              from: tweet[:current_page],
-              user_id: current_user.id
-            } do
-          %>
-            <%= embedded_svg 'trash.svg' %>
-          <% end %>
-        <% end %>
-      <% end %>
+      <%= render partial: 'share/tweet_item_retweet_button', locals: { tweet: tweet, from: from } %>
+      <%= render partial: 'share/tweet_item_delete_button', locals: { tweet: tweet, from: from } %>
     </div>
   </div>
 </li>
