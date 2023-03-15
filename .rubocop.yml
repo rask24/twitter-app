@@ -1,0 +1,17 @@
+Documentation:
+  Enabled: false
+
+AllCops:
+  TargetRubyVersion: 3.1.3
+  TargetRailsVersion: 7.0.4.2
+  Exclude:
+    - 'bin/**/*'
+    - 'app/controllers/users/**/*'
+    - 'db/migrate/**/*'
+    - 'db/schema.rb'
+    - 'test/channels/application_cable/connection_test.rb'
+    - 'test/test_helper.rb'
+
+require:
+  - rubocop-rails
+  - rubocop-performance

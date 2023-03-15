@@ -2,6 +2,8 @@
   <%= link_to '←', :back %>
   ツイート
 </h2>
-<ul>
-  <%= render partial: 'share/tweet_item', locals: { tweet: @tweet, from: 'tweets_show' } %>
-</ul>
+<%= turbo_frame_tag :tweet_detail do %>
+  <ul>
+    <%= render partial: 'share/tweet_item', locals: { tweet: @tweet, from: 'tweets_show' } %>
+  </ul>
+<% end %>
