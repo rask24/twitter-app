@@ -8,8 +8,7 @@
         user_id: tweet[:content].user_id,
         tweet_id: tweet[:content].id,
         retweet_id: tweet[:retweet_info],
-      } do
-    %>
+      } do %>
       <% if from == 'tweets_show' %>
         <div class="flex flex-col">
           <div class="align-middle leading-4 py-2">
@@ -17,14 +16,18 @@
               <span class="font-bold mr-1"><%= tweet[:retweet_count] %></span>件のリツイート
             <% end %>
           </div>
-          <div class="flex items-center mr-2">
-            <%= embedded_svg 'retweet.svg', class: 'fill-green-500' %>
+          <div class="flex justify-start items-center mr-2">
+            <svg class="fill-green-500 hover:fill-green-300 h-5 w-5">
+              <use xlink:href="#icons-retweet"></use>
+            </svg>
           </div>
         </div>
       <% else %>
         <div class="flex">
-          <div class="flex items-center mr-2">
-            <%= embedded_svg 'retweet.svg', class: 'fill-green-500' %>
+          <div class="flex justify-end items-center mr-2">
+            <svg class="fill-green-500 hover:fill-green-300 h-5 w-5">
+              <use xlink:href="#icons-retweet"></use>
+            </svg>
           </div>
           <%= tweet[:retweet_count] %>
         </div>
@@ -40,8 +43,7 @@
         tweet_id: tweet[:content].id,
         from: tweet[:current_page],
         retweet_id: tweet[:retweet_info],
-      } do
-    %>
+      } do %>
       <% if from == 'tweets_show' %>
         <div class="flex flex-col">
           <div class="align-middle leading-4 py-2">
@@ -49,14 +51,18 @@
               <span class="font-bold mr-1"><%= tweet[:retweet_count] %></span>件のリツイート
             <% end %>
           </div>
-          <div class="flex items-center mr-2">
-            <%= embedded_svg 'retweet.svg', class: 'fill-gray-600 hover:fill-green-300' %>
+          <div class="flex justify-start items-center mr-2">
+            <svg class="fill-gray-600 hover:fill-green-300 h-5 w-5">
+              <use xlink:href="#icons-retweet"></use>
+            </svg>
           </div>
         </div>
       <% else %>
         <div class="flex">
-          <div class="flex items-center mr-2">
-            <%= embedded_svg 'retweet.svg', class: 'fill-gray-600 hover:fill-green-300' %>
+          <div class="flex justify-end items-center mr-2">
+            <svg class="fill-gray-600 hover:fill-green-300 h-5 w-5">
+              <use xlink:href="#icons-retweet"></use>
+            </svg>
           </div>
           <%= tweet[:retweet_count] %>
         </div>
@@ -73,14 +79,18 @@
               <span class="font-bold mr-1"><%= tweet[:retweet_count] %></span>件のリツイート
             <% end %>
           </div>
-          <div class="flex items-center mr-2">
-            <%= embedded_svg 'retweet.svg', class: 'fill-gray-600 hover:fill-green-300' %>
+          <div class="flex justify-end items-center mr-2">
+            <svg class="fill-gray-600 hover:fill-green-300 h-5 w-5">
+              <use xlink:href="#icons-retweet"></use>
+            </svg>
           </div>
         </div>
       <% else %>
         <div class="flex">
-          <div class="flex items-center mr-2">
-            <%= embedded_svg 'retweet.svg', class: 'fill-gray-600 hover:fill-green-300' %>
+          <div class="flex justify-end items-center mr-2">
+            <svg class="fill-gray-600 hover:fill-green-300 h-5 w-5">
+              <use xlink:href="#icons-retweet"></use>
+            </svg>
           </div>
           <%= tweet[:retweet_count] %>
         </div>

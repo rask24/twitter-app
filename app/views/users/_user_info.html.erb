@@ -5,33 +5,36 @@
 <h2 class="text-lg font-bold p-3">
   Header
 </h2>
-<div class="flex justify-between">
-  <div class="p-3 h-40 w-40">
-    <%= image_tag 'default_user.png' %>
+
+<%= turbo_frame_tag :user_info do %>
+  <div class="flex justify-between">
+    <div class="p-3 h-40 w-40">
+      <%= image_tag 'default_user.png' %>
+    </div>
+    <h2 class="text-lg font-bold p-3">
+      <%= render partial: 'user_follow_button' %>
+    </h2>
   </div>
-  <h2 class="text-lg font-bold p-3">
-    <%= render partial: 'user_follow_button' %>
+
+  <h2 class="text-lg font-bold px-3">
+    <%= @user.name %>
   </h2>
-</div>
+  <h3 class="text-gray-500 px-3">
+    @<%= @user.id %>
+  </h3>
 
-<h2 class="text-lg font-bold px-3">
-  <%= @user.name %>
-</h2>
-<h3 class="text-gray-500 px-3">
-  @<%= @user.id %>
-</h3>
-
-<div class="flex">
-  <%= link_to followees_user_path(@user.id) do %>
-    <div class="p-3 hover:underline duration-150">
-      <span class="font-bold"><%= @followees.count %></span>
-      <span class="text-gray-500">フォロー中</span>
-    </div>
-  <% end %>
-  <%= link_to followers_user_path(@user.id) do %>
-    <div class="p-3 hover:underline duration-150">
-      <span class="font-bold"><%= @followers.count %></span>
-      <span class="text-gray-500">フォロワー</span>
-    </div>
-  <% end %>
-</div>
+  <div class="flex">
+    <%= link_to followees_user_path(@user.id) do %>
+      <div class="p-3 hover:underline duration-150">
+        <span class="font-bold"><%= @followees.count %></span>
+        <span class="text-gray-500">フォロー中</span>
+      </div>
+    <% end %>
+    <%= link_to followers_user_path(@user.id) do %>
+      <div class="p-3 hover:underline duration-150">
+        <span class="font-bold"><%= @followers.count %></span>
+        <span class="text-gray-500">フォロワー</span>
+      </div>
+    <% end %>
+  </div>
+<% end %>

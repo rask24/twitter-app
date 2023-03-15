@@ -1,8 +1,10 @@
 <li class="border-t px-3 py-2">
   <% if !tweet[:retweet_info].nil? %>
     <div class="flex text-gray-500 pb-1">
-      <div class="flex justify-end h-6 w-11 mr-3">
-        <%= embedded_svg 'retweet.svg', class: "fill-gray-500" %>
+      <div class="flex justify-end items-center h-6 w-11 mr-3">
+        <svg class="fill-gray-500 h-5 w-5">
+          <use xlink:href="#icons-retweet"></use>
+        </svg>
       </div>
       <%= link_to user_path(tweet[:retweet_info].user), class: "hover:underline" do %>
         <% if user_signed_in? && tweet[:retweet_info].user.id == current_user.id %>
@@ -28,19 +30,14 @@
         @<%= tweet[:content].user_id %>
         <%= tweet[:content].created_at.strftime('%m/%d %H:%M') %>
       </span>
-      <div class=
-        <%= from == 'tweets_show' ? "" :
-          "hover:bg-gray-100 active:bg-gray-200"
-        %>
-      >
+      <div class="<%= from == 'tweets_show' ? '' : 'hover:bg-gray-100 active:bg-gray-200' %>">
         <%= button_to tweet_path(tweet[:content]),
           method: :get,
           disabled: from == 'tweets_show',
           class: "w-full text-left",
           params: tweet[:retweet_info].nil? ? {} :{
             retweet_id: tweet[:retweet_info],
-          } do
-        %>
+          } do %>
           <%= tweet[:content].text %>
         <% end %>
       </div>

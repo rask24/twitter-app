@@ -7,9 +7,10 @@
           params: {
             from: tweet[:current_page],
             user_id: current_user.id
-          } do
-        %>
-          <%= embedded_svg 'trash.svg' %>
+          } do %>
+          <svg class="fill-gray-500 hover:fill-red-300 h-5 w-5">
+            <use xlink:href="#icons-trash"></use>
+          </svg>
         <% end %>
       <% end %>
     </div>
@@ -21,9 +22,10 @@
           params: {
             from: tweet[:current_page],
             user_id: current_user.id
-          } do
-        %>
-          <%= embedded_svg 'trash.svg' %>
+          } do %>
+          <svg class="fill-gray-500 hover:fill-red-300 h-5 w-5">
+            <use xlink:href="#icons-trash"></use>
+          </svg>
         <% end %>
       <% end %>
     </div>

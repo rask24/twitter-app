@@ -27,8 +27,7 @@
                     follower_id: current_user.id,
                     followee_id: user_info[:user].id,
                     from: user_info[:from],
-                  } do
-                %>
+                  } do %>
                   <div class="py-1 px-4 rounded-full font-bold text-white bg-black hover:bg-gray-800 active:bg-gray-700 duration-150">
                     フォロー
                   </div>
@@ -36,8 +35,7 @@
               <% else %>
                 <%= button_to follow_path(user_info[:following_info].id),
                   method: :delete,
-                  params: { from: user_info[:from] } do
-                %>
+                  params: { from: user_info[:from] } do %>
                   <div class="py-1 px-4 border rounded-full font-bold hover:border-red-300 hover:bg-red-100 hover:text-red-600 active:bg-red-200 duration-150">
                     フォロー中
                   </div>
