@@ -6,7 +6,7 @@
           <use xlink:href="#icons-retweet"></use>
         </svg>
       </div>
-      <%= link_to user_path(tweet[:retweet_info].user), class: "hover:underline" do %>
+      <%= link_to user_path(tweet[:retweet_info].user), class: "hover:underline", data: { turbo_frame: :user_page } do %>
         <% if user_signed_in? && tweet[:retweet_info].user.id == current_user.id %>
           <p>リツイート済み</p>
         <% else %>
@@ -20,12 +20,12 @@
   <% end %>
   <div class="flex">
     <div class="mr-3 h-12 w-12">
-      <%= link_to user_path(tweet[:content].user) do %>
+      <%= link_to user_path(tweet[:content].user), data: { turbo_frame: :user_page } do %>
         <%= image_tag 'default_user.png' %>
       <% end %>
     </div>
     <div class="w-full">
-      <%= link_to tweet[:content].user.name, user_path(tweet[:content].user), class: "font-bold text-lg hover:underline" %>
+      <%= link_to tweet[:content].user.name, user_path(tweet[:content].user), class: "font-bold text-lg hover:underline", data: { turbo_frame: :user_page } %>
       <span class="text-gray-500">
         @<%= tweet[:content].user_id %>
         <%= tweet[:content].created_at.strftime('%m/%d %H:%M') %>

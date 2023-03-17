@@ -6,15 +6,15 @@
       <% end %>
     </h1>
     <ul class="text-xl">
-      <%= render partial: 'share/navigation_item', locals: { nav_item: 'ホーム', path: root_path, icon: 'home', active: current_page == 'tweets_index' } %>
-      <%= render partial: 'share/navigation_item', locals: { nav_item: '話題を検索', path: explore_tweets_path, icon: 'hash', active: current_page == 'tweets_explore' } %>
+      <%= render partial: 'share/navigation_item', locals: { nav_item: 'ホーム', path: root_path, icon: 'home', active: current_page == 'tweets_index', turbo_frame_name: :index_content } %>
+      <%= render partial: 'share/navigation_item', locals: { nav_item: '話題を検索', path: explore_tweets_path, icon: 'hash', active: current_page == 'tweets_explore', turbo_frame_name: :explore_content } %>
       <% if user_signed_in? %>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: '通知', path: '#', icon: 'bell', active: false } %>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: 'メッセージ' , path: '#', icon: 'mail', active: false } %>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: 'ブックマーク' , path: '#', icon: 'ribbon', active: false } %>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: 'Twitter Blue' , path: '#', icon: 'layout', active: false } %>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: 'プロフィール' , path: user_path(current_user) , icon: 'person', active: current_page == 'users_show_current_user' } %>
-        <%= render partial: 'share/navigation_item', locals: { nav_item: 'もっと見る' , path: '#', icon: 'more', active: false } %>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: '通知', path: '#', icon: 'bell', active: false, turbo_frame_name: '' } %>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'メッセージ' , path: '#', icon: 'mail', active: false , turbo_frame_name: ''} %>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'ブックマーク' , path: '#', icon: 'ribbon', active: false , turbo_frame_name: ''} %>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'Twitter Blue' , path: '#', icon: 'layout', active: false , turbo_frame_name: ''} %>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'プロフィール' , path: user_path(current_user) , icon: 'person', active: current_page == 'users_show_current_user', turbo_frame_name: :user_page } %>
+        <%= render partial: 'share/navigation_item', locals: { nav_item: 'もっと見る' , path: '#', icon: 'more', active: false, turbo_frame_name: '' } %>
       <% end %>
     </ul>
     <% if user_signed_in? %>
