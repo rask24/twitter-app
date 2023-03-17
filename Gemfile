@@ -61,6 +61,9 @@ gem 'brakeman', require: false
 # svg
 gem 'svgeez'
 
+# pagination
+gem 'kaminari'
+
 # Use Sass to process CSS
 # gem 'sassc-rails'
 

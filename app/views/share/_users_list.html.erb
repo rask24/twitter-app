@@ -2,7 +2,7 @@
   <%= link_to '←', :back %>
   <%= title %>
 </h2>
-<%= turbo_frame_tag :user_item do %>
+<%= turbo_frame_tag :user_list do %>
   <ul>
     <% users_info.each do |user_info| %>
       <li class="border-t px-3 py-2">

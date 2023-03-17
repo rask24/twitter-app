@@ -1,4 +1,4 @@
-<%= turbo_frame_tag :users_show_list do %>
+<%= turbo_frame_tag :users_tweets_list do %>
   <ul>
     <% @tweets.each do |tweet| %>
       <%= render partial: 'share/tweet_item', locals: { tweet: tweet, from: 'users_show' } %>

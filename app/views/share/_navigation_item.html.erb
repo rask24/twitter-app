@@ -1,6 +1,6 @@
 <li class="py-1">
   <div class="p-3 rounded-full hover:bg-gray-100 duration-150">
-    <%= link_to path do %>
+    <%= link_to path, data: { turbo_frame: turbo_frame_name } do %>
       <div class="flex">
         <span class="h-8 w-8 rounded-full flex px-1 mr-2">
           <%= image_tag icon %>
