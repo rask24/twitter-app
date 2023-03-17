@@ -4,26 +4,25 @@ class TweetsController < ApplicationController
   include TweetsCommon
 
   def index
-    if user_signed_in?
-      # tweetws / retweets
-      follower_rels = current_user.follower_rels.map(&:followee)
-      followee_tweets = follower_rels.map(&:tweets).flatten
-      followee_retweets = follower_rels.map(&:retweets).flatten
+    redirect_to explore_tweets_path unless user_signed_in?
+    # tweetws / retweets
+    follower_rels = current_user.follower_rels.map(&:followee)
+    followee_tweets = follower_rels.map(&:tweets).flatten
+    followee_retweets = follower_rels.map(&:retweets).flatten
 
-      # all tweets / retweets
-      @tweets = tweets_list(followee_tweets + followee_retweets, 'tweets_index')
+    # all tweets / retweets
+    @tweets = tweets_list(followee_tweets + followee_retweets, 'tweets_index')
+    @tweets = Kaminari.paginate_array(@tweets).page(params[:page])
 
-      # new tweet / retweet
-      @new_tweet = Tweet.new
-      @new_retweet = Retweet.new
-    else
-      redirect_to explore_tweets_path
-    end
+    # new tweet / retweet
+    @new_tweet = Tweet.new
+    @new_retweet = Retweet.new
   end
 
   def explore
-    top_tweets = Tweet.order(created_at: :desc).first(20)
+    top_tweets = Tweet.order(created_at: :desc).to_a
     @tweets = tweets_list(top_tweets, 'tweets_explore')
+    @tweets = Kaminari.paginate_array(@tweets).page(params[:page])
   end
 
   def create

@@ -18,6 +18,7 @@ class UsersController < ApplicationController
 
     # all tweets / retweets
     @tweets = tweets_list(@user.tweets.to_a + @user.retweets.to_a, "users_show_#{@user.id}")
+    @tweets = Kaminari.paginate_array(@tweets).page(params[:page])
   end
 
   def followers
