@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'follows/create'
-  get 'users/show'
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Defines the root path route ("/")
@@ -20,6 +18,7 @@ Rails.application.routes.draw do
     member do
       get 'followers'
       get 'followees'
+      get 'profile'
     end
   end
   resources :follows
