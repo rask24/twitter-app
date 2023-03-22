@@ -7,8 +7,8 @@ class UsersController < ApplicationController
 
   def show
     # followees / followers
-    @followees = @user.follower_rels.map(&:followee)
-    @followers = @user.followee_rels.map(&:follower)
+    @followees = User.followees(@user)
+    @followers = User.followers(@user)
 
     # new follow relation
     @new_follow = Follow.new
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     @user_info = follow_item(@user, "users_show_#{@user.id}")
 
     # all tweets / retweets
-    @tweets = tweets_list(@user.tweets.to_a + @user.retweets.to_a, "users_show_#{@user.id}")
+    @tweets = tweets_list(User.tweets(@user) + User.retweets(@user), "users_show_#{@user.id}")
     @tweets = Kaminari.paginate_array(@tweets).page(params[:page])
   end
 
@@ -35,13 +35,25 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    @user.update(user_params)
+    redirect_to user_path(@user)
+    p '+++++++++++++++++++++++'
+    p user_params
+    p User.create(user_params)
+    p '+++++++++++++++++++++++'
+  end
+
+  def profile
+  end
+
   private
 
   def set_user
-    @user = User.find(user_params[:id])
+    @user = User.find(params[:id])
   end
 
   def user_params
-    params.permit(:id)
+    params.require(:user).permit(:name, :bio, :location, :website)
   end
 end

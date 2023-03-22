@@ -23,6 +23,12 @@
     @<%= @user.id %>
   </h3>
 
+  <% if @user.bio.present? %>
+    <div class="px-3">
+      <%= @user.bio %>
+    </div>
+  <% end %>
+
   <div class="flex">
     <%= link_to followees_user_path(@user.id) do %>
       <div class="p-3 hover:underline duration-150">

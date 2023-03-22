@@ -1,0 +1,8 @@
+<h1>Edit profile</h1>
+<%= form_with  model: @user do |f| %>
+  <%= f.text_area :name %>
+  <%= f.text_area :bio %>
+  <%= f.text_area :location %>
+  <%= f.text_area :website %>
+  <%= f.submit %>
+<% end %>

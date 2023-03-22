@@ -5,13 +5,8 @@ class TweetsController < ApplicationController
 
   def index
     redirect_to explore_tweets_path unless user_signed_in?
-    # tweetws / retweets
-    follower_rels = current_user.follower_rels.map(&:followee)
-    followee_tweets = follower_rels.map(&:tweets).flatten
-    followee_retweets = follower_rels.map(&:retweets).flatten
-
     # all tweets / retweets
-    @tweets = tweets_list(followee_tweets + followee_retweets, 'tweets_index')
+    @tweets = tweets_list(Tweet.followee_tweets(current_user) + Tweet.followee_retweets(current_user), 'tweets_index')
     @tweets = Kaminari.paginate_array(@tweets).page(params[:page])
 
     # new tweet / retweet
