@@ -1,14 +1,2 @@
 <%= turbo_frame_tag :index_content do %>
-  <h2 class="text-lg font-bold p-3">ホーム</h2>
-  <div class="border-t px-3 py-1">
-    <%= render partial: 'tweet_form' %>
-  </div>
-    <%= turbo_frame_tag "tweets_index_list_#{@tweets.current_page}" do %>
-      <ul>
-        <% @tweets.each do |tweet| %>
-          <%= render partial: 'share/tweet_item', locals: { tweet: tweet, from: 'tweets_index' } %>
-        <% end %>
-        <%= turbo_frame_tag "tweets_index_list_#{@tweets.next_page}", loading: :lazy, src: path_to_next_page(@tweets) %>
-      </ul>
-    <% end %>
 <% end %>

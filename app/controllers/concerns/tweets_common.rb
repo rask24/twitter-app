@@ -10,7 +10,7 @@ module TweetsCommon
       rt = is_retweet ? tw : nil
       tw = is_retweet ? rt.tweet : tw
       has_retweet = user_signed_in? ? tw.retweets.where(user_id: current_user.id).exists? : false
-      tweet_item(tw, rt, has_retweet, tw.retweets.count, current_page)
+      tweet_item(tw, rt, has_retweet, tw.retweets.size, current_page)
     end
   end
 

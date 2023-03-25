@@ -38,14 +38,9 @@ class UsersController < ApplicationController
   def update
     @user.update(user_params)
     redirect_to user_path(@user)
-    p '+++++++++++++++++++++++'
-    p user_params
-    p User.create(user_params)
-    p '+++++++++++++++++++++++'
   end
 
-  def profile
-  end
+  def profile; end
 
   private
 
