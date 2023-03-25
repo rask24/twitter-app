@@ -1,0 +1,31 @@
+<%= turbo_frame_tag :tweet_new do %>
+  <div class="border-t px-3 py-1">
+    <div class="flex">
+      <div class="mr-3 h-12 w-12">
+        <%= link_to user_path(current_user) do %>
+          <%= image_tag 'default_user.png' %>
+        <% end %>
+      </div>
+      <div class="w-full">
+        <%= form_with model: @new_tweet, data: { turbo_frame: :home_index } do |f| %>
+          <div class="text-xl pt-1">
+            <%= f.text_area :text,
+            placeholder: '今なにしてる？',
+            rows: 4,
+            class: "w-full resize-none rounded focus:outline-none" %>
+          </div>
+          <div class="flex justify-end text-lg">
+            <div class="border py-1 px-3 rounded-full bg-twitter-primary text-white font-bold">
+              <%= f.submit 'ツイートする' %>
+            </div>
+          </div>
+          <div>
+            <% if @new_tweet.errors.any? %>
+              <%= @new_tweet.errors.messages[:text][0] %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

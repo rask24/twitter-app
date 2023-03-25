@@ -6,13 +6,20 @@ class TweetsController < ApplicationController
   def index
     redirect_to explore_tweets_path unless user_signed_in?
     # all tweets / retweets
-    @tweets = tweets_list(Tweet.followee_tweets(current_user) + Tweet.followee_retweets(current_user), 'tweets_index')
+    @tweets = tweets_list(current_user.follower_tweets.to_a + current_user.follower_retweets.to_a, 'tweets_index')
     @tweets = Kaminari.paginate_array(@tweets).page(params[:page])
+  end
 
-    # new tweet / retweet
+  def new
     @new_tweet = Tweet.new
     @new_retweet = Retweet.new
   end
+
+  # def user
+  #   user = User.find(detail_params[:user_id])
+  #   @tweets = tweets_list(user.tweets.to_a, user.retweets.to_a)
+  #   @tweets = Kaminari.paginate_array(@tweets).page(params[:page])
+  # end
 
   def explore
     top_tweets = Tweet.order(created_at: :desc).to_a
