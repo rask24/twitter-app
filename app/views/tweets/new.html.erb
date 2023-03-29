@@ -7,7 +7,7 @@
         <% end %>
       </div>
       <div class="w-full">
-        <%= form_with model: @new_tweet, data: { turbo_frame: :home_index } do |f| %>
+        <%= form_with url: tweets_path, model: @new_tweet, data: { turbo_frame: :home_index } do |f| %>
           <div class="text-xl pt-1">
             <%= f.text_area :text,
             placeholder: '今なにしてる？',

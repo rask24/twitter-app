@@ -1,17 +1,17 @@
 <li class="border-t px-3 py-2">
-  <% if !tweet[:retweet_info].nil? %>
+  <% if tweet.respond_to?(:retweet_id) && tweet.retweet_id.present? %>
     <div class="flex text-gray-500 pb-1">
       <div class="flex justify-end items-center h-6 w-11 mr-3">
         <svg class="fill-gray-500 h-5 w-5">
           <use xlink:href="#icons-retweet"></use>
         </svg>
       </div>
-      <%= link_to user_path(tweet[:retweet_info].user), class: "hover:underline", data: { turbo_frame: :user_page } do %>
-        <% if user_signed_in? && tweet[:retweet_info].user.id == current_user.id %>
+      <%= link_to user_path(tweet.retweet_user), class: "hover:underline", data: { turbo_frame: :user_page } do %>
+        <% if user_signed_in? && tweet.retweet_user.id == current_user.id %>
           <p>リツイート済み</p>
         <% else %>
           <p>
-            <%= tweet[:retweet_info].user.name %>
+            <%= tweet.retweet_user.name %>
             さんがリツイートしました
           </p>
         <% end %>
@@ -20,29 +20,26 @@
   <% end %>
   <div class="flex">
     <div class="mr-3 h-12 w-12">
-      <%= link_to user_path(tweet[:content].user), data: { turbo_frame: :user_page } do %>
+      <%= link_to user_path(tweet.user), data: { turbo_frame: :user_page } do %>
         <%= image_tag 'default_user.png' %>
       <% end %>
     </div>
     <div class="w-full">
-      <%= link_to tweet[:content].user.name, user_path(tweet[:content].user), class: "font-bold text-lg hover:underline", data: { turbo_frame: :user_page } %>
+      <%= link_to tweet.user.name, user_path(tweet.user), class: "font-bold text-lg hover:underline", data: { turbo_frame: :user_page } %>
       <span class="text-gray-500">
-        @<%= tweet[:content].user_id %>
-        <%= tweet[:content].created_at.strftime('%m/%d %H:%M') %>
+        @<%= tweet.user_id %>
+        <%= tweet.created_at.strftime('%m/%d %H:%M') %>
       </span>
       <div class="<%= from == 'tweets_show' ? '' : 'hover:bg-gray-100 active:bg-gray-200' %>">
-        <%= button_to tweet_path(tweet[:content]),
+        <%= button_to tweet_path(tweet.id),
           method: :get,
           disabled: from == 'tweets_show',
           class: "w-full text-left",
-          params: tweet[:retweet_info].nil? ? {} :{
-            retweet_id: tweet[:retweet_info],
-          } do %>
-          <%= tweet[:content].text %>
+          params: tweet.respond_to?(:retweet_id) && tweet.retweet_id.present? ? { retweet_id: tweet.retweet_id } : {} do %>
+          <%= tweet.text %>
         <% end %>
       </div>
       <%= render partial: 'share/tweet_item_retweet_button', locals: { tweet: tweet, from: from } %>
-      <%= render partial: 'share/tweet_item_delete_button', locals: { tweet: tweet, from: from } %>
     </div>
   </div>
 </li>

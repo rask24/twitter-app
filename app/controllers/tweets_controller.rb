@@ -1,28 +1,16 @@
 # frozen_string_literal: true
 
 class TweetsController < ApplicationController
+  before_action :set_tweet, only: %i[show destroy]
   include TweetsCommon
 
   def index
-    @tweets = tweets_list(current_user.follower_tweets.to_a + current_user.follower_retweets.to_a, 'tweets_index')
-    @tweets = Kaminari.paginate_array(@tweets).page(params[:page])
+    @tweets = current_user.follow_tweets_retweets.page(params[:page])
   end
 
   def new
     @new_tweet = Tweet.new
     @new_retweet = Retweet.new
-  end
-
-  # def user
-  #   user = User.find(detail_params[:user_id])
-  #   @tweets = tweets_list(user.tweets.to_a, user.retweets.to_a)
-  #   @tweets = Kaminari.paginate_array(@tweets).page(params[:page])
-  # end
-
-  def explore
-    top_tweets = Tweet.order(created_at: :desc).to_a
-    @tweets = tweets_list(top_tweets, 'tweets_explore')
-    @tweets = Kaminari.paginate_array(@tweets).page(params[:page])
   end
 
   def create
@@ -31,20 +19,19 @@ class TweetsController < ApplicationController
     redirect_to root_path
   end
 
+  def explore
+    @tweets = Tweet.preload(:user, :retweets).order(created_at: :desc).page(params[:page])
+    # @tweets = tweets_list(top_tweets, 'tweets_explore')
+    # @tweets = Kaminari.paginate_array(@tweets).page(params[:page])
+  end
+
   def show
-    tw = Tweet.find(detail_params[:id])
-    rt = Retweet.find_by(id: detail_params[:retweet_id])
-    hr = user_signed_in? ? tw.retweets.where(user_id: current_user.id).exists? : false
-    rc = tw.retweets.count
-    @tweet = tweet_item(tw, rt, hr, rc, 'tweets_show')
+    @tweet = @tweet.tweet_detail(detail_params[:retweet_id])
   end
 
   def destroy
-    # tweet / retweet
-    tweet = Tweet.find(detail_params[:id])
-
     # delete tweet / retweet
-    tweet.destroy
+    @tweet.destroy
     tweets_redirect(detail_params[:from], detail_params[:user_id])
   end
 
@@ -68,6 +55,10 @@ class TweetsController < ApplicationController
 
   def detail_params
     params.permit(:id, :user_id, :from, :retweet_id)
+  end
+
+  def set_tweet
+    @tweet = Tweet.find(detail_params[:id])
   end
 
   def tweets_redirect(from, user_id)
