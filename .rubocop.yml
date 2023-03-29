@@ -11,6 +11,7 @@ AllCops:
     - 'db/schema.rb'
     - 'test/channels/application_cable/connection_test.rb'
     - 'test/test_helper.rb'
+    - 'script.rb'
 
 require:
   - rubocop-rails

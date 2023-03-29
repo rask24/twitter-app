@@ -64,6 +64,9 @@ gem 'svgeez'
 # pagination
 gem 'kaminari'
 
+# pry
+gem 'pry-rails'
+
 # Use Sass to process CSS
 # gem 'sassc-rails'
 

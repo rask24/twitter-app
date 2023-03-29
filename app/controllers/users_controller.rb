@@ -6,10 +6,6 @@ class UsersController < ApplicationController
   include FollowsCommon
 
   def show
-    # followees / followers
-    @followees = User.followees(@user)
-    @followers = User.followers(@user)
-
     # new follow relation
     @new_follow = Follow.new
 
@@ -17,8 +13,7 @@ class UsersController < ApplicationController
     @user_info = follow_item(@user, "users_show_#{@user.id}")
 
     # all tweets / retweets
-    @tweets = tweets_list(User.tweets(@user) + User.retweets(@user), "users_show_#{@user.id}")
-    @tweets = Kaminari.paginate_array(@tweets).page(params[:page])
+    @tweets = @user.tweets_retweets.page(params[:page])
   end
 
   def followers

@@ -24,13 +24,13 @@ class RetweetsController < ApplicationController
   end
 
   def retweets_redirect(from, tweet_id, retweet_id)
-    if from == 'tweets_index'
+    if from == '/tweets'
       redirect_to root_path
-    elsif from == 'tweets_explore'
+    elsif from == '/tweets/explore'
       redirect_to explore_tweets_path
-    elsif from == 'tweets_show'
+    elsif from.start_with?('/tweets/')
       redirect_to tweet_path(tweet_id, retweet_id:)
-    elsif from.start_with?('users_show')
+    elsif from.start_with?('/users/')
       redirect_to user_path(from.delete('^0-9'))
     end
   end
