@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "retweet_button_#{tweet.id}" do %>
+<%= turbo_frame_tag class: "retweet_button_#{tweet.id}" do %>
   <% if user_signed_in? && tweet.retweet_info(current_user.id).present? %>
     <div class="mt-2 h-6">
       <%= button_to retweet_path(tweet.retweet_info(current_user.id)),
