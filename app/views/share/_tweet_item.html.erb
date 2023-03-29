@@ -35,6 +35,7 @@
           method: :get,
           disabled: from == 'tweets_show',
           class: "w-full text-left",
+          data: { turbo_frame: :home_index },
           params: tweet.respond_to?(:retweet_id) && tweet.retweet_id.present? ? { retweet_id: tweet.retweet_id } : {} do %>
           <%= tweet.text %>
         <% end %>

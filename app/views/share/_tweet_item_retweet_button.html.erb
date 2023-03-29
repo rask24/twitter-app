@@ -1,43 +1,47 @@
-<% if user_signed_in? && tweet.retweet_info(current_user.id).present? %>
-  <div class="mt-2 h-6">
-    <%= button_to retweet_path(tweet.retweet_info(current_user.id)),
-      method: :delete,
-      class: "flex items-center",
-      params: {
-        from: request.path,
-        user_id: tweet.user_id,
-        tweet_id: tweet.id,
-        # retweet_id: tweet.retweet_id,
-      } do %>
-      <div class="flex">
-        <div class="flex justify-end items-center mr-2">
-          <svg class="fill-green-500 hover:fill-green-300 h-5 w-5">
-            <use xlink:href="#icons-retweet"></use>
-          </svg>
+<%= turbo_frame_tag "retweet_button_#{tweet.id}" do %>
+  <% if user_signed_in? && tweet.retweet_info(current_user.id).present? %>
+    <div class="mt-2 h-6">
+      <%= button_to retweet_path(tweet.retweet_info(current_user.id)),
+        method: :delete,
+        class: "flex items-center",
+        data: { turbo_frame: "tweet_#{tweet.id}" },
+        params: {
+          from: request.path,
+          user_id: tweet.user_id,
+          tweet_id: tweet.id,
+          # retweet_id: tweet.retweet_id,
+        } do %>
+        <div class="flex">
+          <div class="flex justify-end items-center mr-2">
+            <svg class="fill-green-500 hover:fill-green-300 h-5 w-5">
+              <use xlink:href="#icons-retweet"></use>
+            </svg>
+          </div>
+          <%= tweet.retweets.size %>
         </div>
-        <%= tweet.retweets.size %>
-      </div>
-    <% end %>
-  </div>
-<% else %>
-  <div class="mt-2 h-6">
-    <%= button_to retweets_path,
-      disabled: !user_signed_in?,
-      method: :post,
-      params: {
-        user_id: tweet.user_id,
-        tweet_id: tweet.id,
-        from: request.path,
-        # retweet_id: tweet.retweet_id,
-      } do %>
-      <div class="flex">
-        <div class="flex justify-end items-center mr-2">
-          <svg class="fill-gray-600 hover:fill-green-300 h-5 w-5">
-            <use xlink:href="#icons-retweet"></use>
-          </svg>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="mt-2 h-6">
+      <%= button_to retweets_path,
+        disabled: !user_signed_in?,
+        method: :post,
+        data: { turbo_frame: "tweet_#{tweet.id}" },
+        params: {
+          user_id: tweet.user_id,
+          tweet_id: tweet.id,
+          from: request.path,
+          # retweet_id: tweet.retweet_id,
+        } do %>
+        <div class="flex">
+          <div class="flex justify-end items-center mr-2">
+            <svg class="fill-gray-600 hover:fill-green-300 h-5 w-5">
+              <use xlink:href="#icons-retweet"></use>
+            </svg>
+          </div>
+          <%= tweet.retweets.size %>
         </div>
-        <%= tweet.retweets.size %>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
