@@ -16,35 +16,27 @@ class User < ApplicationRecord
 
   def tweets_retweets
     relation = Tweet.joins("LEFT OUTER JOIN retweets
-                            ON tweets.id = retweets.tweet_id
-                            AND retweets.user_id = #{id}")
-                    .select('tweets.*,
-                             retweets.id AS retweet_id,
+                            ON tweets.id = retweets.tweet_id AND retweets.user_id = #{id}")
+                    .select('tweets.*, retweets.id AS retweet_id,
                              retweets.user_id AS retweet_user_id,
                              retweets.created_at AS retweet_created_at')
     relation.where(user_id: id)
             .or(relation.where('retweets.user_id = ?', id))
             .preload(:user, :retweet_user, :retweets)
-            .order(Arel.sql('CASE WHEN retweets.created_at IS NULL
-                             THEN tweets.created_at
-                             ELSE retweets.created_at
-                             END DESC'))
+            .order(Arel.sql('CASE WHEN retweets.created_at IS NULL THEN tweets.created_at
+                             ELSE retweets.created_at END DESC'))
   end
 
   def follow_tweets_retweets
-    relation = Tweet.joins("LEFT OUTER JOIN retweets
-                            ON tweets.id = retweets.tweet_id
-                            AND retweets.user_id
+    relation = Tweet.joins("LEFT OUTER JOIN retweets ON tweets.id = retweets.tweet_id AND retweets.user_id
                             IN (SELECT followee_id FROM follows WHERE follows.follower_id = #{id})")
-                    .select('tweets.*,
-                             retweets.id AS retweet_id,
+                    .select('tweets.*, retweets.id AS retweet_id,
                              retweets.user_id AS retweet_user_id,
                              retweets.created_at AS retweet_created_at')
     relation.where(id: Retweet.where(user_id: followers.pluck(:id)).pluck(:tweet_id))
             .or(relation.where(user_id: followers.pluck(:id)))
             .preload(:user, :retweet_user, :retweets)
             .order(Arel.sql('CASE WHEN retweets.created_at IS NULL THEN tweets.created_at
-                             ELSE retweets.created_at
-                             END DESC'))
+                             ELSE retweets.created_at END DESC'))
   end
 end
