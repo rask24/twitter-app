@@ -5,6 +5,7 @@ class Tweet < ApplicationRecord
   belongs_to :user
   belongs_to :retweet_user, class_name: 'User', optional: true
   has_many :retweets, dependent: :destroy
+  has_many :retweet_users, class_name: 'User', through: :retweets, source: :user
 
   def retweet_info(user_id)
     retweets.find_by(user_id:)

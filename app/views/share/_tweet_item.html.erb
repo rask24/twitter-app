@@ -30,17 +30,21 @@
         @<%= tweet.user_id %>
         <%= tweet.created_at.strftime('%m/%d %H:%M') %>
       </span>
-      <div class="<%= from == 'tweets_show' ? '' : 'hover:bg-gray-100 active:bg-gray-200' %>">
+      <div class="<%= request.path.match?(/^\/tweets\/[0-9]+$/) ? '' : 'hover:bg-gray-100 active:bg-gray-200' %>">
         <%= button_to tweet_path(tweet.id),
           method: :get,
-          disabled: from == 'tweets_show',
+          disabled: request.path.match?(/^\/tweets\/[0-9]+$/),
           class: "w-full text-left",
           data: { turbo_frame: :home_index },
           params: tweet.respond_to?(:retweet_id) && tweet.retweet_id.present? ? { retweet_id: tweet.retweet_id } : {} do %>
           <%= tweet.text %>
         <% end %>
       </div>
-      <%= render partial: 'share/tweet_item_retweet_button', locals: { tweet: tweet, from: from } %>
+      <% if request.path.match?(/^\/tweets\/[0-9]+$/) %>
+        <%= render partial: 'share/tweet_item_retweet_button_detail', locals: { tweet: tweet } %>
+      <% else %>
+        <%= render partial: 'share/tweet_item_retweet_button', locals: { tweet: tweet } %>
+      <% end %>
     </div>
   </div>
 </li>
