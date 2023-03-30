@@ -2,32 +2,20 @@
 
 class UsersController < ApplicationController
   before_action :set_user
-  include TweetsCommon
   include FollowsCommon
 
   def show
-    # new follow relation
-    @new_follow = Follow.new
-
-    # user info -> follow relation
-    @user_info = follow_item(@user, "users_show_#{@user.id}")
-
-    # all tweets / retweets
     @tweets = @user.tweets_retweets.page(params[:page])
   end
 
   def followers
     # フォロワー
-    @followers_info = @user.followee_rels.map do |f|
-      follow_item(f.follower, "users_followers_#{@user.id}")
-    end
+    @followers = @user.followees
   end
 
   def followees
     # フォロー中
-    @followees_info = @user.follower_rels.map do |f|
-      follow_item(f.followee, "users_followees_#{@user.id}")
-    end
+    @followees = @user.followers
   end
 
   def update

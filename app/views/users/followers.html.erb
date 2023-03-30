@@ -5,7 +5,7 @@
     </div>
   </div>
   <div class="basis-6/12 border-x">
-    <%= render partial: 'share/users_list', locals: { users_info: @followers_info, title: 'フォロワー' } %>
+    <%= render partial: 'share/users_list', locals: { users: @followers, title: 'フォロワー' } %>
   </div>
   <div class="basis-3/12">
     <%= render partial: 'share/right_sidebar' %>

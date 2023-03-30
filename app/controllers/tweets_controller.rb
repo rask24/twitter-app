@@ -2,7 +2,6 @@
 
 class TweetsController < ApplicationController
   before_action :set_tweet, only: %i[show destroy]
-  include TweetsCommon
 
   def index
     @tweets = current_user.follow_tweets_retweets.page(params[:page])
@@ -21,8 +20,6 @@ class TweetsController < ApplicationController
 
   def explore
     @tweets = Tweet.preload(:user, :retweets).order(created_at: :desc).page(params[:page])
-    # @tweets = tweets_list(top_tweets, 'tweets_explore')
-    # @tweets = Kaminari.paginate_array(@tweets).page(params[:page])
   end
 
   def show
@@ -30,7 +27,6 @@ class TweetsController < ApplicationController
   end
 
   def destroy
-    # delete tweet / retweet
     @tweet.destroy
     tweets_redirect(detail_params[:from], detail_params[:user_id])
   end
