@@ -39,4 +39,8 @@ class User < ApplicationRecord
             .order(Arel.sql('CASE WHEN retweets.created_at IS NULL THEN tweets.created_at
                              ELSE retweets.created_at END DESC'))
   end
+
+  def following_info(user)
+    follower_rels.find_by(followee_id: user.id)
+  end
 end

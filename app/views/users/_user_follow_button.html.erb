@@ -1,35 +1,29 @@
-<% if user_signed_in? %>
-  <% if current_user.id == @user.id %>
-    <%= link_to profile_user_path(@user) do %>
-        <div class="py-1 px-3 border rounded-full font-bold hover:bg-gray-100 active:bg-gray-200 duration-150">
-          プロフィールを編集
+<%= turbo_frame_tag "follow_button_#{@user.id}" do %>
+  <% if user_signed_in? %>
+    <% if current_user.id == @user.id %>
+      <%= link_to profile_user_path(@user) do %>
+          <div class="py-1 px-3 border rounded-full font-bold hover:bg-gray-100 active:bg-gray-200 duration-150">
+            プロフィールを編集
+          </div>
+      <% end %>
+    <% elsif current_user.following_info(@user).present? %>
+      <%= button_to follow_path(current_user.following_info(@user)), method: :delete do %>
+        <div class="py-1 px-4 border rounded-full font-bold hover:border-red-300 hover:bg-red-100 hover:text-red-600 active:bg-red-200 duration-150">
+          フォロー中
         </div>
+      <% end %>
+    <% else %>
+      <%= button_to follows_path, method: :post, params: { follower_id: current_user.id, followee_id: @user.id, } do %>
+        <div class="py-1 px-4 rounded-full font-bold text-white bg-black hover:bg-gray-800 active:bg-gray-700 duration-150">
+          フォロー
+        </div>
+      <% end %>
     <% end %>
-  <% elsif @user_info[:following_info].nil? %>
-    <%= button_to follows_path,
-      method: :post,
-      params: {
-        follower_id: current_user.id,
-        followee_id: @user.id,
-        from: @user_info[:from],
-      } do %>
-      <div class="py-1 px-4 rounded-full font-bold text-white bg-black hover:bg-gray-800 active:bg-gray-700 duration-150">
+  <% else %>
+    <%= button_to disabled: true do %>
+      <div class="py-1 px-3 rounded-full font-bold text-white bg-black hover:bg-gray-800 active:bg-gray-700 duration-150">
         フォロー
       </div>
     <% end %>
-  <% else %>
-    <%= button_to follow_path(@user_info[:following_info].id),
-      method: :delete,
-      params: { from: @user_info[:from] } do %>
-      <div class="py-1 px-4 border rounded-full font-bold hover:border-red-300 hover:bg-red-100 hover:text-red-600 active:bg-red-200 duration-150">
-        フォロー中
-      </div>
-    <% end %>
-  <% end %>
-<% else %>
-  <%= button_to disabled: true do %>
-    <div class="py-1 px-3 rounded-full font-bold text-white bg-black hover:bg-gray-800 active:bg-gray-700 duration-150">
-      フォロー
-    </div>
   <% end %>
 <% end %>

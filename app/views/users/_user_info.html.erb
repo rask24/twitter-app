@@ -12,7 +12,7 @@
       <%= image_tag 'default_user.png' %>
     </div>
     <h2 class="text-lg font-bold p-3">
-      <%= render partial: 'user_follow_button' %>
+      <%= render partial: 'users/user_follow_button' %>
     </h2>
   </div>
 
@@ -32,15 +32,12 @@
   <div class="flex">
     <%= link_to followees_user_path(@user.id) do %>
       <div class="p-3 hover:underline duration-150">
-        <span class="font-bold"><%= @user.followees.size %></span>
+        <span class="font-bold"><%= @user.followers.size %></span>
         <span class="text-gray-500">フォロー中</span>
       </div>
     <% end %>
     <%= link_to followers_user_path(@user.id) do %>
-      <div class="p-3 hover:underline duration-150">
-        <span class="font-bold"><%= @user.followers.size %></span>
-        <span class="text-gray-500">フォロワー</span>
-      </div>
+      <%= render partial: 'users/user_follower_count' %>
     <% end %>
   </div>
 <% end %>

@@ -5,12 +5,7 @@
         method: :delete,
         class: "flex items-center",
         data: { turbo_frame: "tweet_#{tweet.id}" },
-        params: {
-          from: request.path,
-          user_id: tweet.user_id,
-          tweet_id: tweet.id,
-          # retweet_id: tweet.retweet_id,
-        } do %>
+        params: { tweet_id: tweet.id, } do %>
         <div class="flex">
           <div class="flex justify-end items-center mr-2">
             <svg class="fill-green-500 hover:fill-green-300 h-5 w-5">
@@ -27,12 +22,7 @@
         disabled: !user_signed_in?,
         method: :post,
         data: { turbo_frame: "tweet_#{tweet.id}" },
-        params: {
-          user_id: tweet.user_id,
-          tweet_id: tweet.id,
-          from: request.path,
-          # retweet_id: tweet.retweet_id,
-        } do %>
+        params: { tweet_id: tweet.id, } do %>
         <div class="flex">
           <div class="flex justify-end items-center mr-2">
             <svg class="fill-gray-600 hover:fill-green-300 h-5 w-5">
