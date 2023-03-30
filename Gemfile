@@ -67,6 +67,9 @@ gem 'kaminari'
 # pry
 gem 'pry-rails'
 
+# ransack
+gem 'ransack'
+
 # Use Sass to process CSS
 # gem 'sassc-rails'
 

@@ -19,7 +19,11 @@ class TweetsController < ApplicationController
   end
 
   def explore
-    @tweets = Tweet.preload(:user, :retweets).order(created_at: :desc).page(params[:page])
+    # @tweets = Tweet.preload(:user, :retweets).order(created_at: :desc).page(params[:page])
+
+    @search = Tweet.preload(:user, :retweets).ransack(params[:q])
+    # @search.sorts = 'id desc' if @search.sorts.empty?
+    @tweets = @search.result.order(id: :desc).page(params[:page])
   end
 
   def show
