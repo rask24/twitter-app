@@ -7,10 +7,9 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :home
+  resources :explore
+  resources :search
   resources :tweets do
-    collection do
-      get 'explore'
-    end
     member do
       get 'retweets'
     end

@@ -23,11 +23,11 @@ class Tweet < ApplicationRecord
     retweet_id.present? ? relation.find_by(retweets: { id: retweet_id }) : relation[0]
   end
 
-  def self.ransackable_attributes(auth_object = nil)
+  def self.ransackable_attributes(_auth_object = nil)
     ['text']
   end
 
-  def self.ransackable_associations(auth_object = nil)
-    ['retweet_user', 'retweet_users', 'retweets', 'user']
+  def self.ransackable_associations(_auth_object = nil)
+    %w[retwet_user retweet_users retweets user]
   end
 end
