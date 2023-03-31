@@ -9,12 +9,10 @@ class UsersController < ApplicationController
   end
 
   def followers
-    # フォロワー
     @followers = @user.followees
   end
 
   def followees
-    # フォロー中
     @followees = @user.followers
   end
 

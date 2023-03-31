@@ -24,8 +24,8 @@ class RetweetsController < ApplicationController
   def render_with_turbo_stream(tweet)
     render turbo_stream: [
       turbo_stream.replace_all(".retweet_button_#{retweet_params[:tweet_id]}",
-                                                  partial: 'share/tweet_item_retweet_button',
-                                                  locals: { tweet: }),
+                               partial: 'share/tweet_item_retweet_button',
+                               locals: { tweet: }),
       turbo_stream.replace("retweet_button_detail_#{retweet_params[:tweet_id]}",
                            partial: 'share/tweet_item_retweet_button_detail',
                            locals: { tweet: })
