@@ -1,8 +1,24 @@
 <h1>Edit profile</h1>
 <%= form_with  model: @user do |f| %>
-  <%= f.text_area :name %>
-  <%= f.text_area :bio %>
-  <%= f.text_area :location %>
-  <%= f.text_area :website %>
+  <div>
+    <%= f.label :icon %>
+    <%= f.file_field :icon %>
+  </div>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_area :name %>
+  </div>
+  <div>
+    <%= f.label :bio %>
+    <%= f.text_area :bio %>
+  </div>
+  <div>
+    <%= f.label :location %>
+    <%= f.text_area :location %>
+  </div>
+  <div>
+    <%= f.label :website %>
+    <%= f.text_area :website %>
+  </div>
   <%= f.submit %>
 <% end %>

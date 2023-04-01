@@ -2,7 +2,6 @@
 
 class UsersController < ApplicationController
   before_action :set_user
-  include FollowsCommon
 
   def show
     @tweets = @user.tweets_retweets.page(params[:page])
@@ -30,6 +29,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :bio, :location, :website)
+    params.require(:user).permit(:icon, :name, :bio, :location, :website)
   end
 end

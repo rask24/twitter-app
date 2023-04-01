@@ -70,6 +70,12 @@ gem 'pry-rails'
 # ransack
 gem 'ransack'
 
+# image processing
+gem 'image_processing'
+
+# image magick
+gem 'mini_magick'
+
 # Use Sass to process CSS
 # gem 'sassc-rails'
 

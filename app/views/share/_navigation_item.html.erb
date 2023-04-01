@@ -3,7 +3,7 @@
     <%= link_to path, data: { turbo_frame: turbo_frame_name, turbo_action: :advance } do %>
       <div class="flex">
         <span class="h-8 w-8 rounded-full flex px-1 mr-2">
-          <%= image_tag icon %>
+          <%= image_tag "icons/#{icon}" %>
         </span>
         <span class="<%= active ? 'font-bold' : '' %>">
           <%= nav_item %>

@@ -2,14 +2,17 @@
   <%= link_to '←', :back %>
   <%= @user.name %>
 </h2>
-<h2 class="text-lg font-bold p-3">
-  Header
-</h2>
+<div class="bg-gray-500 h-40 text-lg font-bold p-3">
+</div>
 
 <%= turbo_frame_tag :user_info do %>
-  <div class="flex justify-between">
-    <div class="p-3 h-40 w-40">
-      <%= image_tag 'default_user.png' %>
+  <div class="flex justify-between h-20">
+    <div class="relative bottom-16 mx-4 h-36 w-36 rounded-full border-4 border-white overflow-hidden">
+      <% if @user.icon.attached? %>
+        <%= image_tag @user.icon, class: "w-full bg-white" %>
+      <% else %>
+        <%= image_tag 'users/default_user' %>
+      <% end %>
     </div>
     <h2 class="text-lg font-bold p-3">
       <%= render partial: 'users/user_follow_button' %>
