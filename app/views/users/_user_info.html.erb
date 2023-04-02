@@ -9,7 +9,7 @@
   <div class="flex justify-between h-20">
     <div class="relative bottom-16 mx-4 h-36 w-36 rounded-full border-4 border-white overflow-hidden">
       <% if @user.icon.attached? %>
-        <%= image_tag @user.icon, class: "w-full bg-white" %>
+        <%= image_tag @user.icon.variant(resize: '400x400'), class: "aspect-w-36 aspect-h-36 bg-white" %>
       <% else %>
         <%= image_tag 'users/default_user' %>
       <% end %>
@@ -27,8 +27,20 @@
   </h3>
 
   <% if @user.bio.present? %>
-    <div class="px-3">
+    <div class="px-3 my-2">
       <%= @user.bio %>
+    </div>
+  <% end %>
+
+  <% if @user.location.present? %>
+    <div class="px-3 my-2">
+      <%= @user.location %>
+    </div>
+  <% end %>
+
+  <% if @user.website.present? %>
+    <div class="px-3 my-2 text-twitter-primary underline">
+      <%= link_to @user.website, "https://#{@user.website}" %>
     </div>
   <% end %>
 

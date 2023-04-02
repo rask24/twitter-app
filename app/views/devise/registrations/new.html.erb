@@ -1,34 +1,50 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+<div class="container h-screen mx-auto flex justify-center">
+  <div class="basis-3/12 flex justify-end">
+    <div class="px-4">
+      <%= render partial: 'share/navigation' %>
+    </div>
   </div>
+  <div class="basis-6/12 border-x overflow-y-scroll p-3">
+    <h2 class="text-lg font-bold">サインアップ</h2>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <div class="border border-gray-300 rounded-lg p-2 my-3">
+        <%= f.label :name %><br />
+        <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "text-lg focus:border-b focus:border-twitter-primary outline-none w-full" %>
+      </div>
+
+      <div class="border border-gray-300 rounded-lg p-2 my-3">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "text-lg focus:border-b focus:border-twitter-primary outline-none w-full" %>
+      </div>
+
+      <div class="border border-gray-300 rounded-lg p-2 my-3">
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password", class: "text-lg focus:border-b focus:border-twitter-primary outline-none w-full"  %>
+      </div>
+
+      <div class="border border-gray-300 rounded-lg p-2 my-3">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "text-lg focus:border-b focus:border-twitter-primary outline-none w-full"  %>
+      </div>
+
+      <div class="flex justify-end">
+        <div class="flex flex-col">
+          <div class="w-32 right-0 text-center border my-3 py-1 px-3 rounded-full bg-twitter-primary text-white font-bold">
+            <%= f.submit 'サインアップ' %>
+          </div>
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+
+    <% end %>
+
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+  <div class="basis-3/12">
+    <%= render partial: 'share/right_sidebar' %>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

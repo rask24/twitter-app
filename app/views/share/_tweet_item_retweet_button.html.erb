@@ -12,7 +12,9 @@
               <use xlink:href="#icons-retweet"></use>
             </svg>
           </div>
-          <%= tweet.retweets.size %>
+          <% if tweet.retweets.size > 0 %>
+            <%= tweet.retweets.size %>
+          <% end %>
         </div>
       <% end %>
     </div>
@@ -29,7 +31,9 @@
               <use xlink:href="#icons-retweet"></use>
             </svg>
           </div>
-          <%= tweet.retweets.size %>
+          <% if tweet.retweets.size > 0 %>
+            <%= tweet.retweets.size %>
+          <% end %>
         </div>
       <% end %>
     </div>
