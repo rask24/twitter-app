@@ -7,11 +7,15 @@
     <% users.each do |user| %>
       <li class="border-t px-3 py-2">
         <div class="flex">
-          <div class="mr-3 h-12 w-12">
-            <%= link_to user_path(user) do %>
-              <%= image_tag 'users/default_user' %>
-            <% end %>
-          </div>
+          <%= link_to user_path(user) do %>
+            <div class="mr-3 h-12 w-12 rounded-full overflow-hidden">
+              <% if user.icon.attached? %>
+                <%= image_tag user.icon.variant(resize: '200x200'), class: "bg-white" %>
+              <% else %>
+                <%= image_tag 'users/default_user' %>
+              <% end %>
+            </div>
+          <% end %>
           <div class="w-full flex justify-between">
             <div>
               <%= link_to user.name, user_path(user), class: "font-bold text-lg hover:underline" %>

@@ -527,6 +527,9 @@ video {
 .bottom-16 {
   bottom: 4rem;
 }
+.right-0 {
+  right: 0px;
+}
 .mx-4 {
   margin-left: 1rem;
   margin-right: 1rem;
@@ -534,6 +537,21 @@ video {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+.my-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+.my-3 {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.mb-4 {
+  margin-bottom: 1rem;
 }
 .mr-1 {
   margin-right: 0.25rem;
@@ -586,9 +604,6 @@ video {
 .h-screen {
   height: 100vh;
 }
-.h-auto {
-  height: auto;
-}
 .w-11 {
   width: 2.75rem;
 }
@@ -597,6 +612,9 @@ video {
 }
 .w-14 {
   width: 3.5rem;
+}
+.w-32 {
+  width: 8rem;
 }
 .w-36 {
   width: 9rem;
@@ -610,12 +628,6 @@ video {
 .w-full {
   width: 100%;
 }
-.w-10 {
-  width: 2.5rem;
-}
-.w-auto {
-  width: auto;
-}
 .basis-3\/12 {
   flex-basis: 25%;
 }
@@ -624,6 +636,9 @@ video {
 }
 .resize-none {
   resize: none;
+}
+.resize {
+  resize: both;
 }
 .flex-col {
   flex-direction: column;
@@ -658,6 +673,9 @@ video {
 .rounded-full {
   border-radius: 9999px;
 }
+.rounded-lg {
+  border-radius: 0.5rem;
+}
 .border {
   border-width: 1px;
 }
@@ -670,6 +688,10 @@ video {
 }
 .border-t {
   border-top-width: 1px;
+}
+.border-gray-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 .border-white {
   --tw-border-opacity: 1;
@@ -704,6 +726,9 @@ video {
 .fill-green-500 {
   fill: #22c55e;
 }
+.p-2 {
+  padding: 0.5rem;
+}
 .p-3 {
   padding: 0.75rem;
 }
@@ -737,8 +762,14 @@ video {
 .pt-1 {
   padding-top: 0.25rem;
 }
+.pt-3 {
+  padding-top: 0.75rem;
+}
 .text-left {
   text-align: left;
+}
+.text-center {
+  text-align: center;
 }
 .align-middle {
   vertical-align: middle;
@@ -764,6 +795,13 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.text-twitter-primary {
+  --tw-text-opacity: 1;
+  color: rgb(8 160 233 / var(--tw-text-opacity));
+}
+.underline {
+  text-decoration-line: underline;
 }
 .outline-none {
   outline: 2px solid transparent;
@@ -804,6 +842,13 @@ video {
 }
 .hover\:underline:hover {
   text-decoration-line: underline;
+}
+.focus\:border-b:focus {
+  border-bottom-width: 1px;
+}
+.focus\:border-twitter-primary:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(8 160 233 / var(--tw-border-opacity));
 }
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
