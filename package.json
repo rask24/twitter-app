@@ -4,7 +4,7 @@
   "main": "app/javascript/application.js",
   "repository": "git@github.com:rask24/twtter-app.git",
   "scripts": {
-    "dev": "postcss app/assets/stylesheets/*.css -d app/assets/stylesheets/dist/ --watch"
+    "dev": "postcss app/assets/stylesheets/*.css -d app/assets/stylesheets/dist/"
   },
   "author": "rask24 <rask0x18@gmail.com>",
   "license": "MIT",

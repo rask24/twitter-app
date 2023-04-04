@@ -18,7 +18,7 @@
       <% end %>
     </ul>
     <% if user_signed_in? %>
-      <h3 class="text-xl p-3">ツイートする</h3>
+      <%= render partial: 'share/tweet_modal' %>
     <% end %>
   </div>
   <div>
