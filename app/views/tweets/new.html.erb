@@ -3,19 +3,25 @@
     <div class="flex">
       <div class="mr-3 h-12 w-12">
         <%= link_to user_path(current_user) do %>
-          <%= image_tag 'users/default_user' %>
+          <div class="mr-3 h-12 w-12 rounded-full overflow-hidden">
+            <% if current_user.icon.attached? %>
+              <%= image_tag current_user.icon.variant(resize: '200x200'), class: "bg-white" %>
+            <% else %>
+              <%= image_tag 'users/default_user' %>
+            <% end %>
+          </div>
         <% end %>
       </div>
       <div class="w-full">
         <%= form_with url: tweets_path, model: @new_tweet, data: { turbo_frame: :home_index } do |f| %>
           <div class="text-xl pt-1">
             <%= f.text_area :text,
-            placeholder: '今なにしてる？',
+            placeholder: 'いまどうしてる？',
             rows: 4,
             class: "w-full resize-none rounded focus:outline-none" %>
           </div>
           <div class="flex justify-end text-lg">
-            <div class="border py-1 px-3 rounded-full bg-twitter-primary text-white font-bold">
+            <div data-action='click->modal#close' class="border py-1 px-3 rounded-full bg-twitter-primary text-white font-bold">
               <%= f.submit 'ツイートする' %>
             </div>
           </div>

@@ -21,11 +21,11 @@
   <div class="flex">
     <%= link_to user_path(tweet.user), data: { turbo_frame: :user_page, turbo_action: :advance } do %>
       <div class="mr-3 h-12 w-12 rounded-full overflow-hidden">
-      <% if tweet.user.icon.attached? %>
-        <%= image_tag tweet.user.icon.variant(resize: '200x200'), class: "bg-white" %>
-      <% else %>
-        <%= image_tag 'users/default_user' %>
-      <% end %>
+        <% if tweet.user.icon.attached? %>
+          <%= image_tag tweet.user.icon.variant(resize: '200x200'), class: "bg-white" %>
+        <% else %>
+          <%= image_tag 'users/default_user' %>
+        <% end %>
       </div>
     <% end %>
     <div class="w-full">
