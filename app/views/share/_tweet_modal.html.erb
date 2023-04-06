@@ -13,7 +13,7 @@
           </div>
         </div>
         <div class="px-3">
-          <%= turbo_frame_tag :tweet_new, src: new_tweet_path, loading: :lazy %>
+          <%= turbo_frame_tag :tweet_new, src: new_tweet_path, loading: :lazy, data: { turbo_frame: :main } %>
         </div>
       </div>
     </div>

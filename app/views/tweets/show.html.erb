@@ -1,13 +1,11 @@
-<div class="container h-screen mx-auto flex justify-center">
-  <div class="basis-3/12 flex justify-end">
-    <div class="px-4">
-      <%= render partial: 'share/navigation', locals: { current_page: 'tweets_show' } %>
-    </div>
-  </div>
-  <div class="basis-6/12 border-x">
-    <%= render partial: 'tweet_detail' %>
-  </div>
-  <div class="basis-3/12">
-    <%= render partial: 'share/right_sidebar' %>
-  </div>
-</div>
+<%= turbo_frame_tag :main, data: { turbo_action: :advance } do %>
+  <h2 class="text-lg font-bold p-3">
+    <%= link_to '←', :back, data: { turbo_frame: :main } %>
+    ツイート
+  </h2>
+  <%= turbo_frame_tag :tweet_detail do %>
+    <ul>
+      <%= render partial: 'share/tweet_item', locals: { tweet: @tweet } %>
+    </ul>
+  <% end %>
+<% end %>

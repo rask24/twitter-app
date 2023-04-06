@@ -1,9 +1,0 @@
-<h2 class="text-lg font-bold p-3">
-  <%= link_to '←', :back %>
-  ツイート
-</h2>
-<%= turbo_frame_tag :tweet_detail do %>
-  <ul>
-    <%= render partial: 'share/tweet_item', locals: { tweet: @tweet } %>
-  </ul>
-<% end %>

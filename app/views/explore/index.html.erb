@@ -1,14 +1,4 @@
-<div class="container h-screen mx-auto flex justify-center">
-  <div class="basis-3/12 flex justify-end">
-    <div class="px-4">
-      <%= render partial: 'share/navigation' %>
-    </div>
-  </div>
-  <div class="basis-6/12 border-x overflow-y-scroll">
-    <%= turbo_frame_tag :search_new, src: new_search_path, loading: :lazy %>
-    <%= turbo_frame_tag :search_tweets_list, src: search_index_path, loading: :lazy %>
-  </div>
-  <div class="basis-3/12">
-    <%= render partial: 'share/right_sidebar' %>
-  </div>
-</div>
+<%= turbo_frame_tag :main, data: { turbo_action: :advance } do %>
+  <%= turbo_frame_tag :search_new, src: new_search_path, loading: :lazy %>
+  <%= turbo_frame_tag :search_tweets_list, src: search_index_path, loading: :lazy %>
+<% end %>

@@ -1,7 +1,7 @@
 <div class="flex h-full flex-col justify-between">
   <div>
     <h1 class="h-14 w-14 p-3 rounded-full hover:bg-twitter-light duration-150">
-      <%= link_to  root_path do %>
+      <%= link_to  root_path, data: { turbo_frame: :main } do %>
         <%= image_tag 'icons/twitter' %>
       <% end %>
     </h1>
@@ -24,7 +24,7 @@
   <div>
     <% if user_signed_in? %>
       <div class="rounded-full hover:bg-gray-100 duration-150">
-        <%= link_to user_path(current_user) do %>
+        <%= link_to user_path(current_user), data: { turbo_frame: :main } do %>
           <div class="flex p-3">
             <div class="mr-3 h-12 w-12 rounded-full overflow-hidden">
               <% if current_user.icon.attached? %>
@@ -44,11 +44,11 @@
       <div class="px-4 py-2">
       </div>
       <div class="w-full text-center border mb-4 py-1 px-3 rounded-full bg-black text-white font-bold">
-        <%= link_to 'ログアウト', destroy_user_session_path, data: { turbo_method: 'delete'} %>
+        <%= link_to 'ログアウト', destroy_user_session_path, data: { turbo_method: 'delete' } %>
       </div>
     <% else %>
       <div class="w-full text-center border mb-4 py-1 px-3 rounded-full bg-black text-white font-bold">
-        <%= link_to 'ログイン', new_user_session_path %>
+        <%= link_to 'ログイン', new_user_session_path, data: { turbo_frame: :main } %>
       </div>
     <% end %>
   </div>

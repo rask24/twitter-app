@@ -1,58 +1,54 @@
 <h2 class="text-lg font-bold p-3">
-  <%= link_to '←', :back %>
+  <%= link_to '←', :back, data: { turbo_frame: :main } %>
   <%= @user.name %>
 </h2>
 <div class="bg-gray-500 h-40 text-lg font-bold p-3">
 </div>
 
-<%= turbo_frame_tag :user_info do %>
-  <div class="flex justify-between h-20">
-    <div class="relative bottom-16 mx-4 h-36 w-36 rounded-full border-4 border-white overflow-hidden">
-      <% if @user.icon.attached? %>
-        <%= image_tag @user.icon.variant(resize: '400x400'), class: "aspect-w-36 aspect-h-36 bg-white" %>
-      <% else %>
-        <%= image_tag 'users/default_user' %>
-      <% end %>
-    </div>
-    <h2 class="text-lg font-bold p-3">
-      <%= render partial: 'users/user_follow_button' %>
-    </h2>
+<div class="flex justify-between h-20">
+  <div class="relative bottom-16 mx-4 h-36 w-36 rounded-full border-4 border-white overflow-hidden">
+    <% if @user.icon.attached? %>
+      <%= image_tag @user.icon.variant(resize: '400x400'), class: "aspect-w-36 aspect-h-36 bg-white" %>
+    <% else %>
+      <%= image_tag 'users/default_user' %>
+    <% end %>
   </div>
-
-  <h2 class="text-lg font-bold px-3">
-    <%= @user.name %>
+  <h2 class="text-lg font-bold p-3">
+    <%= render partial: 'users/user_follow_button' %>
   </h2>
-  <h3 class="text-gray-500 px-3">
-    @<%= @user.id %>
-  </h3>
+</div>
 
-  <% if @user.bio.present? %>
-    <div class="px-3 my-2">
-      <%= @user.bio %>
-    </div>
-  <% end %>
+<h2 class="text-lg font-bold px-3">
+  <%= @user.name %>
+</h2>
+<h3 class="text-gray-500 px-3">
+  @<%= @user.id %>
+</h3>
 
-  <% if @user.location.present? %>
-    <div class="px-3 my-2">
-      <%= @user.location %>
-    </div>
-  <% end %>
-
-  <% if @user.website.present? %>
-    <div class="px-3 my-2 text-twitter-primary underline">
-      <%= link_to @user.website, "https://#{@user.website}" %>
-    </div>
-  <% end %>
-
-  <div class="flex">
-    <%= link_to followees_user_path(@user.id) do %>
-      <div class="p-3 hover:underline duration-150">
-        <span class="font-bold"><%= @user.followers.size %></span>
-        <span class="text-gray-500">フォロー中</span>
-      </div>
-    <% end %>
-    <%= link_to followers_user_path(@user.id) do %>
-      <%= render partial: 'users/user_follower_count' %>
-    <% end %>
+<% if @user.bio.present? %>
+  <div class="px-3 my-2">
+    <%= @user.bio %>
   </div>
 <% end %>
+
+<% if @user.location.present? %>
+  <div class="px-3 my-2">
+    <%= @user.location %>
+  </div>
+<% end %>
+
+<% if @user.website.present? %>
+  <div class="px-3 my-2 text-twitter-primary underline">
+    <%= link_to @user.website, "https://#{@user.website}" %>
+  </div>
+<% end %>
+
+<div class="flex">
+  <%= link_to followees_user_path(@user.id), data: { turbo_frame: :main } do %>
+    <div class="p-3 hover:underline duration-150">
+      <span class="font-bold"><%= @user.followers.size %></span>
+      <span class="text-gray-500">フォロー中</span>
+    </div>
+  <% end %>
+  <%= render partial: 'users/user_follower_count' %>
+</div>

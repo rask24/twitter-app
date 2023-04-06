@@ -1,6 +1,8 @@
-<%= turbo_frame_tag :follower_count do %>
-  <div class="p-3 hover:underline duration-150">
-    <span class="font-bold"><%= @user.followees.size %></span>
-    <span class="text-gray-500">フォロワー</span>
-  </div>
+<%= turbo_frame_tag :follower_count, data: { turbo_frame: :main } do %>
+  <%= link_to followers_user_path(@user.id), data: { turbo_frame: :main } do %>
+    <div class="p-3 hover:underline duration-150">
+      <span class="font-bold"><%= @user.followees.size %></span>
+      <span class="text-gray-500">フォロワー</span>
+    </div>
+  <% end %>
 <% end %>
