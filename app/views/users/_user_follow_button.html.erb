@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "follow_button_#{@user.id}" do %>
   <% if user_signed_in? %>
     <% if current_user.id == @user.id %>
-      <%= link_to profile_user_path(@user) do %>
+      <%= link_to profile_user_path(@user), data: { turbo_frame: :main } do %>
           <div class="py-1 px-3 border rounded-full font-bold hover:bg-gray-100 active:bg-gray-200 duration-150">
             プロフィールを編集
           </div>

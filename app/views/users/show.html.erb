@@ -1,16 +1,4 @@
-<div class="container h-screen mx-auto flex justify-center">
-  <div class="basis-3/12 flex justify-end">
-    <div class="px-4">
-      <%= render partial: 'share/navigation' %>
-    </div>
-  </div>
-  <div class="basis-6/12 border-x overflow-y-scroll">
-    <%= turbo_frame_tag :user_page do %>
-      <%= render partial: 'users/user_info' %>
-      <%= render partial: 'users/user_tweets' %>
-    <% end %>
-  </div>
-  <div class="basis-3/12">
-    <%= render partial: 'share/right_sidebar' %>
-  </div>
-</div>
+<%= turbo_frame_tag :main, data: { turbo_actin: :advance } do %>
+  <%= render partial: 'users/user_info' %>
+  <%= render partial: 'users/user_tweets' %>
+<% end %>

@@ -13,7 +13,7 @@
         <% end %>
       </div>
       <div class="w-full">
-        <%= form_with url: tweets_path, model: @new_tweet, data: { turbo_frame: :home_index } do |f| %>
+        <%= form_with url: tweets_path, model: @new_tweet, data: { turbo_frame: :main, action: 'turbo:submit-end->modal#close' } do |f| %>
           <div class="text-xl pt-1">
             <%= f.text_area :text,
             placeholder: 'いまどうしてる？',
@@ -21,7 +21,7 @@
             class: "w-full resize-none rounded focus:outline-none" %>
           </div>
           <div class="flex justify-end text-lg">
-            <div data-action='click->modal#close' class="border py-1 px-3 rounded-full bg-twitter-primary text-white font-bold">
+            <div class="border py-1 px-3 rounded-full bg-twitter-primary text-white font-bold">
               <%= f.submit 'ツイートする' %>
             </div>
           </div>

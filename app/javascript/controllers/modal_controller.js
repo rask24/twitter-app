@@ -10,10 +10,10 @@ export default class extends Controller {
   }
 
   open() {
-    this.windowTarget.classList.toggle(this.hiddenClass);
+    this.windowTarget.classList.remove(this.hiddenClass);
   }
 
   close() {
-    this.windowTarget.classList.toggle(this.hiddenClass);
+    this.windowTarget.classList.add(this.hiddenClass);
   }
 }
