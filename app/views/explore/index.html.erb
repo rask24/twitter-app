@@ -1,4 +1,4 @@
-<%= turbo_frame_tag :main, data: { turbo_action: :advance } do %>
+<%= turbo_frame_tag :main do %>
   <%= turbo_frame_tag :search_new, src: new_search_path, loading: :lazy %>
   <%= turbo_frame_tag :search_tweets_list, src: search_index_path, loading: :lazy %>
 <% end %>

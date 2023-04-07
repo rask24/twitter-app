@@ -11,14 +11,14 @@ Rails.application.routes.draw do
   resources :search
   resources :tweets do
     member do
-      get 'retweets'
+      get :retweets
     end
   end
   resources :users do
     member do
-      get 'followers'
-      get 'followees'
-      get 'profile'
+      get :followers
+      get :followees
+      get :profile
     end
   end
   resources :follows
