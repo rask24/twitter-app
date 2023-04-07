@@ -1,7 +1,7 @@
 <%= turbo_stream.replace :navigation_list do %>
   <ul class="text-xl">
-    <%= render partial: 'share/navigation_item', locals: { nav_item: 'ホーム', path: root_path, icon: 'home', active: false } %>
-    <%= render partial: 'share/navigation_item', locals: { nav_item: '話題を検索', path: explore_index_path, icon: 'hash', active: true } %>
+    <%= render partial: 'share/navigation_item', locals: { nav_item: 'ホーム', path: root_path, icon: 'home', active: true } %>
+    <%= render partial: 'share/navigation_item', locals: { nav_item: '話題を検索', path: explore_index_path, icon: 'hash', active: false } %>
     <% if user_signed_in? %>
       <%= render partial: 'share/navigation_item', locals: { nav_item: '通知', path: '#', icon: 'bell', active: false } %>
       <%= render partial: 'share/navigation_item', locals: { nav_item: 'メッセージ' , path: '#', icon: 'mail', active: false } %>
@@ -13,6 +13,7 @@
   </ul>
 <% end %>
 <%= turbo_stream.replace :main do %>
-  <%= turbo_frame_tag :search_new, src: new_search_path, loading: :lazy %>
-  <%= turbo_frame_tag :search_tweets_list, src: search_index_path, loading: :lazy %>
+  <h2 class="text-lg font-bold p-3">ホーム</h2>
+  <%= turbo_frame_tag :tweet_new, src: new_tweet_path, loading: :lazy %>
+  <%= turbo_frame_tag :tweets_index, src: tweets_path, loading: :lazy %>
 <% end %>

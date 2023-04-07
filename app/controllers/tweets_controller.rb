@@ -13,8 +13,9 @@ class TweetsController < ApplicationController
 
   def create
     @new_tweet = Tweet.new(text: tweet_params[:text], user_id: current_user.id)
-    @new_tweet.save
-    redirect_to root_path
+    if @new_tweet.save
+      redirect_to root_path
+    end
   end
 
   def show

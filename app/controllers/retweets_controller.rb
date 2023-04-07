@@ -3,16 +3,18 @@
 class RetweetsController < ApplicationController
   def create
     retweet = Retweet.new(user_id: current_user.id, tweet_id: retweet_params[:tweet_id])
-    retweet.save
-    tweet = Tweet.find(retweet_params[:tweet_id])
-    render_with_turbo_stream(tweet)
+    if retweet.save
+      tweet = Tweet.find(retweet_params[:tweet_id])
+      render_with_turbo_stream(tweet)
+    end
   end
 
   def destroy
     retweet_to_del = Retweet.find(retweet_params[:id])
-    retweet_to_del.destroy
-    tweet = Tweet.find(retweet_params[:tweet_id])
-    render_with_turbo_stream(tweet)
+    if retweet_to_del.destroy
+      tweet = Tweet.find(retweet_params[:tweet_id])
+      render_with_turbo_stream(tweet)
+    end
   end
 
   private
