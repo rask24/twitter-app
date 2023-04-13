@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if ! command -v overmind &>/dev/null
+then
+    echo 'installing overmind...'
+    brew install overmind
+fi
+
+overmind start
