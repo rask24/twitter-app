@@ -2,11 +2,11 @@
   <h2 class="text-lg font-bold">ログイン</h2>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo_frame: '_top' }) do |f| %>
     <div class="border border-gray-300 rounded-lg p-2 my-3">
-      <%= f.label :name %><br />
+      <%= f.label :name %><br>
       <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "text-lg focus:border-b focus:border-twitter-primary outline-none w-full" %>
     </div>
     <div class="border border-gray-300 rounded-lg p-2 my-3">
-      <%= f.label :password %><br />
+      <%= f.label :password %><br>
       <%= f.password_field :password, autocomplete: "current-password", class: "text-lg focus:border-b focus:border-twitter-primary outline-none w-full" %>
     </div>
     <div class="flex justify-end">

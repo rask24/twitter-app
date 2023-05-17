@@ -2,31 +2,31 @@
 
 class FollowsController < ApplicationController
   def create
-    @user = User.find(follow_params[:followee_id])
-    if Follow.create(follower_id: follow_params[:follower_id],
-                     followee_id: follow_params[:followee_id])
+    @user = User.find follow_params[:followee_id]
+    if Follow.create(
+         follower_id: follow_params[:follower_id],
+         followee_id: follow_params[:followee_id],
+       )
       render_with_turbo_stream
     end
   end
 
   def destroy
-    follow_rel = Follow.find(follow_params[:id])
-    @user = User.find(follow_rel.followee_id)
-    if follow_rel.destroy
-      render_with_turbo_stream
-    end
+    follow_rel = Follow.find follow_params[:id]
+    @user = User.find follow_rel.followee_id
+    render_with_turbo_stream if follow_rel.destroy
   end
 
   private
 
   def follow_params
-    params.permit(:follower_id, :followee_id, :id)
+    params.permit :follower_id, :followee_id, :id
   end
 
   def render_with_turbo_stream
     render turbo_stream: [
-      turbo_stream.replace("follow_button_#{@user.id}", partial: 'users/user_follow_button'),
-      turbo_stream.replace(:follower_count, partial: 'users/user_follower_count')
-    ] and return
+             turbo_stream.replace("follow_button_#{@user.id}", partial: 'users/user_follow_button'),
+             turbo_stream.replace(:follower_count, partial: 'users/user_follower_count'),
+           ] and return
   end
 end

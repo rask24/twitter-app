@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ "$1" == "--ci" ]; then
+  bundle exec erblint --lint-all
+else
+  bundle exec erblint --lint-all --autocorrect
+fi
