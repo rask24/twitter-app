@@ -1,9 +1,31 @@
----
-glob: "**/*.{html,text,js}{+*,}.erb"
 exclude:
+  - '**/lib/**/*'
   - '**/vendor/**/*'
-  - '**/node_modules/**/*'
 linters:
-  # 自動生成したERBファイルの閉じタグを検証から除外する
-  SelfClosingTag:
-    enabled: false
+  Rubocop:
+    enabled: true
+    rubocop_config:
+      inherit_from:
+        - .rubocop.yml
+      Layout/InitialIndentation:
+        Enabled: false
+      Layout/TrailingEmptyLines:
+        Enabled: false
+      Layout/TrailingWhitespace:
+        Enabled: false
+      Layout/LineLength:
+        Enabled: false
+      Naming/FileName:
+        Enabled: false
+      Style/FrozenStringLiteralComment:
+        Enabled: false
+      Lint/MissingCopEnableDirective:
+        Enabled: false
+      Lint/RedundantCopEnableDirective:
+        Enabled: false
+      Lint/UselessAssignment:
+        Enabled: false
+      Rails/OutputSafety:
+        Enabled: false
+      Style/RedundantEach:
+        Enabled: false

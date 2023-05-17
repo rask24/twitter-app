@@ -2,7 +2,7 @@
   <%= turbo_frame_tag "search_tweets_list_#{@tweets.current_page}" do %>
     <ul>
       <% @tweets.each do |tweet| %>
-        <%= render partial: 'share/tweet_item', locals: { tweet: tweet } %>
+        <%= render partial: 'share/tweet_item', locals: { tweet: } %>
       <% end %>
       <%= turbo_frame_tag "search_tweets_list_#{@tweets.next_page}", loading: :lazy, src: path_to_next_page(@tweets) %>
     </ul>

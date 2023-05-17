@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ "$1" == "--ci" ]; then
+  bundle exec rubocop --parallel
+elif [ "$1" == "--all" ]; then
+  bundle exec rubocop -A
+else
+  bundle exec rubocop -A
+  # bin/changed_files | xargs bundle exec rubocop -A --force-exclusion
+fi
