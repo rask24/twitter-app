@@ -37,22 +37,18 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'bootsnap', require: false
 # user authentication
 gem 'devise'
-
 # svg
 gem 'svgeez'
-
 # pagination
 gem 'kaminari'
-
 # pry
 gem 'pry-rails'
-
 # ransack
 gem 'ransack'
-
+# for db seed
+gem 'faker'
 # image processing
 gem 'image_processing'
-
 # image magick
 gem 'mini_magick'
 
