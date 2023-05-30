@@ -4,17 +4,30 @@
   "main": "app/javascript/application.js",
   "repository": "git@github.com:rask24/twtter-app.git",
   "scripts": {
-    "dev": "postcss app/assets/stylesheets/*.css -d app/assets/stylesheets/dist/ --watch"
+    "dev": "postcss app/assets/stylesheets/*.css -d app/assets/stylesheets/dist/"
   },
   "author": "rask24 <rask0x18@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@prettier/plugin-ruby": "^3.2.2",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "autoprefixer": "^10.4.13",
+    "eslint": "^8.41.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jest": "^27.2.1",
+    "eslint-plugin-lodash-fp": "^2.2.0-a1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.5.0",
     "postcss": "^8.4.21",
     "postcss-cli": "^10.1.0",
+    "prettier": "^2.8.8",
     "tailwindcss": "^3.2.7"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.1",
+    "@hotwired/turbo-rails": "^7.3.0"
+  }
 }

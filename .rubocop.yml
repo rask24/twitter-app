@@ -1,18 +1,205 @@
-Documentation:
-  Enabled: false
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-thread_safety
+
+inherit_from:
+  - node_modules/@prettier/plugin-ruby/rubocop.yml
 
 AllCops:
-  TargetRubyVersion: 3.1.3
-  TargetRailsVersion: 7.0.4.2
+  DisplayCopNames: true
+  DisplayStyleGuide: true
   Exclude:
-    - 'bin/**/*'
-    - 'app/controllers/users/**/*'
-    - 'db/migrate/**/*'
-    - 'db/schema.rb'
-    - 'test/channels/application_cable/connection_test.rb'
-    - 'test/test_helper.rb'
-    - 'script.rb'
+    - '**/*.erb'
+    - bin/**/*
+    - db/*schema.rb
+    - log/**/*
+    - node_modules/**/*
+    - tmp/**/*
+    - vendor/**/*
+    - workspace/**/*
+  Include:
+    - '**/*.gemspec'
+    - '**/*.rake'
+    - '**/*.rb'
+    - '**/Gemfile'
+    - '**/Guardfile'
+    - '**/Rakefile'
+    - '**/config.ru'
+  NewCops: enable
+  TargetRubyVersion: 3.1
 
-require:
-  - rubocop-rails
-  - rubocop-performance
+Layout/ClassStructure:
+  Enabled: true
+
+Layout/EmptyLineAfterMagicComment:
+  Enabled: true
+
+Layout/HashAlignment:
+  EnforcedColonStyle:
+    - key
+    - table
+  EnforcedHashRocketStyle:
+    - key
+    - table
+
+Layout/HeredocArgumentClosingParenthesis:
+  Enabled: true
+
+Layout/LineLength:
+  AllowedPatterns:
+    - '^ *# '
+  AllowHeredoc: true
+  AllowURI: true
+  AutoCorrect: true
+  Max: 100
+
+Layout/MultilineArrayLineBreaks:
+  Enabled: true
+
+Layout/MultilineMethodArgumentLineBreaks:
+  Enabled: true
+
+Lint/HeredocMethodCallPosition:
+  Enabled: true
+
+Lint/NumberConversion:
+  Enabled: false
+
+Metrics/AbcSize:
+  Exclude:
+    - db/migrate/*.rb
+  Max: 16
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  Exclude:
+    - db/migrate/*.rb
+
+Metrics/MethodLength:
+  Exclude:
+    - db/migrate/*.rb
+  Max: 20
+
+Naming/AsciiIdentifiers:
+  Enabled: false
+
+Naming/InclusiveLanguage:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  EnforcedStyleForLeadingUnderscores: required
+
+Performance/Casecmp:
+  Enabled: false
+
+RSpec/DescribeClass:
+  Exclude:
+    - spec/features/**/*.rb
+
+RSpec/DescribedClass:
+  EnforcedStyle: described_class
+
+RSpec/FactoryBot/ConsistentParenthesesStyle:
+  Enabled: false # NOTE: It messes up with Style/MethodCallWithArgsParentheses
+
+RSpec/MessageSpies:
+  EnforcedStyle: receive
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/system/**/*.rb
+
+RSpec/NestedGroups:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+Rails/ActionOrder:
+  ExpectedOrder:
+    - index
+    - show
+    - new
+    - create
+    - edit
+    - update
+    - destroy
+
+Rails/ApplicationController:
+  Enabled: false
+
+Rails/BulkChangeTable:
+  Enabled: false
+
+Rails/NotNullColumn:
+  Enabled: false
+
+Rails/ReversibleMigration:
+  Enabled: false
+
+RSpec/NoExpectationExample:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/FormatStringToken:
+  AllowedMethods:
+    - redirect
+
+Style/MethodCallWithArgsParentheses:
+  AllowParenthesesInMultilineCall: true
+  Enabled: true
+  EnforcedStyle: omit_parentheses
+
+Style/LambdaCall:
+  Enabled: false
+
+Style/OptionHash:
+  Enabled: true
+
+Style/ReturnNil:
+  Enabled: true
+
+Style/Send:
+  Enabled: true
+
+Style/SingleLineBlockParams:
+  Enabled: true
+
+Style/StabbyLambdaParentheses:
+  EnforcedStyle: require_parentheses
+
+Style/StringMethods:
+  Enabled: true
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: single_quotes
+
+Style/QuotedSymbols:
+  EnforcedStyle: single_quotes
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma

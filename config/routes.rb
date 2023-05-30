@@ -10,9 +10,7 @@ Rails.application.routes.draw do
   resources :explore
   resources :search
   resources :tweets do
-    member do
-      get :retweets
-    end
+    member { get :retweets }
   end
   resources :users do
     member do

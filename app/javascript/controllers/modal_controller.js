@@ -1,19 +1,16 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus'
 
 // Connects to data-controller="modal"
 export default class extends Controller {
-  static targets = ['window'];
-  static classes = ['hidden'];
+  static targets = ['window']
 
-  connect() {
-    console.log('connected!');
-  }
+  static classes = ['hidden']
 
   open() {
-    this.windowTarget.classList.remove(this.hiddenClass);
+    this.windowTarget.classList.remove(this.hiddenClass)
   }
 
   close() {
-    this.windowTarget.classList.add(this.hiddenClass);
+    this.windowTarget.classList.add(this.hiddenClass)
   }
 }

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ "$1" == "--ci" ]; then
+  node_modules/.bin/prettier --ignore-unknown --check .
+elif [ "$1" == "--all" ]; then
+  node_modules/.bin/prettier --ignore-unknown --check --write .
+else
+  node_modules/.bin/prettier --ignore-unknown --check --write .
+  # bin/changed_files | xargs node_modules/.bin/prettier --ignore-unknown --check --write
+fi

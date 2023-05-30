@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ "$1" == "--ci" ]; then
+  node_modules/.bin/eslint --ext .js --ext .jsx --ext .json app/javascript
+else
+  node_modules/.bin/eslint --ext .js --ext .jsx --ext .json --fix app/javascript
+fi

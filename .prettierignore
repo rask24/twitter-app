@@ -1,0 +1,12 @@
+/app/assets/builds
+/app/javascript/controllers/index.js
+/coverage
+/db/schema.rb
+/log
+/node_modules
+/public/assets
+/public/packs
+/public/packs-test
+/storage
+/tmp
+/vendor

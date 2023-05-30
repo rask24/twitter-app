@@ -1,0 +1,24 @@
+env:
+  browser: true
+  es2021: true
+  jquery: true
+extends:
+  - airbnb-base
+  - plugin:jest/recommended
+  - plugin:prettier/recommended
+  - plugin:lodash-fp/recommended
+parserOptions:
+  ecmaVersion: 13
+  sourceType: module
+globals:
+  Turbo: true
+  flatpickr: true
+  toastr: true
+  Rails: true
+ignorePatterns:
+  - app/javascript/vendor
+rules:
+  import/no-default-export: ['error']
+  no-alert: 0
+  import/no-named-as-default: 0
+  import/prefer-default-export: 0
