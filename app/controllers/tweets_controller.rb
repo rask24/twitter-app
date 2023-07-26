@@ -19,7 +19,6 @@ class TweetsController < ApplicationController
     redirect_to root_path if @new_tweet.save
   end
 
-
   def destroy
     @tweet.destroy
   end

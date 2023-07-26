@@ -8,4 +8,29 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-100.times { |n| Tweet.create(text: "#{n} tweet", user_id: 5) }
+NUM_OF_USERS = 10
+NUM_OF_TWEETS = 50
+NUM_OF_FOLLOWS = 10
+MAX_NUM_OF_RETWEETS = 3
+
+NUM_OF_USERS.times do |_i|
+  name = Faker::Internet.username
+  User.create name:, email: Faker::Internet.email, password: name
+end
+
+NUM_OF_TWEETS.times do |_i|
+  Tweet.create text: Faker::Lorem.sentence, user_id: rand(1...NUM_OF_USERS)
+end
+
+NUM_OF_USERS.times do |i|
+  user_follows = rand 1...NUM_OF_FOLLOWS
+  user_follows.times { |j| Follow.create(follower_id: i + 1, followee_id: j) }
+end
+
+NUM_OF_USERS.times do |i|
+  user_retweets = rand 1...MAX_NUM_OF_RETWEETS
+  shuffled_tweet_ids = (1...NUM_OF_TWEETS).to_a.shuffle
+  user_retweets.times do |j|
+    Retweet.create user_id: i + 1, tweet_id: shuffled_tweet_ids[j]
+  end
+end

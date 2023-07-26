@@ -13,6 +13,12 @@ class Tweet < ApplicationRecord
   def self.ransackable_associations(_auth_object = nil)
     %w[retwet_user retweet_users retweets user]
   end
+  def self.ransackable_attributes(_auth_object = nil)
+    ['text']
+  end
+  def self.ransackable_associations(_auth_object = nil)
+    %w[retwet_user retweet_users retweets user]
+  end
   def retweet_info(user_id)
     retweets.find_by user_id:
   end
@@ -38,6 +44,4 @@ class Tweet < ApplicationRecord
       relation[0]
     end
   end
-
-
 end
