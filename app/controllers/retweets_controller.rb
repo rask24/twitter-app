@@ -2,7 +2,8 @@
 
 class RetweetsController < ApplicationController
   def create
-    retweet = Retweet.new user_id: current_user.id, tweet_id: retweet_params[:tweet_id]
+    retweet =
+      Retweet.new user_id: current_user.id, tweet_id: retweet_params[:tweet_id]
     return unless retweet.save
     tweet = Tweet.find retweet_params[:tweet_id]
     render_with_turbo_stream tweet

@@ -32,6 +32,10 @@ class Tweet < ApplicationRecord
         )
         .preload(:user, :retweet_user, :retweets)
         .where(id:)
-    retweet_id.present? ? relation.find_by(retweets: { id: retweet_id }) : relation[0]
+    if retweet_id.present?
+      relation.find_by retweets: { id: retweet_id }
+    else
+      relation[0]
+    end
   end
 end

@@ -25,8 +25,14 @@ class FollowsController < ApplicationController
 
   def render_with_turbo_stream
     render turbo_stream: [
-             turbo_stream.replace("follow_button_#{@user.id}", partial: 'users/user_follow_button'),
-             turbo_stream.replace(:follower_count, partial: 'users/user_follower_count'),
+             turbo_stream.replace(
+               "follow_button_#{@user.id}",
+               partial: 'users/user_follow_button',
+             ),
+             turbo_stream.replace(
+               :follower_count,
+               partial: 'users/user_follower_count',
+             ),
            ] and return
   end
 end

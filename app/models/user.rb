@@ -3,23 +3,30 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
-  has_many :tweets, dependent: :destroy
-  has_many :follower_rels,
-           class_name: 'Follow',
-           foreign_key: :follower_id,
-           inverse_of: 'follower',
-           dependent: :destroy
-  has_many :followee_rels,
-           class_name: 'Follow',
-           foreign_key: :followee_id,
-           inverse_of: 'followee',
-           dependent: :destroy
-  has_many :retweets, dependent: :destroy
+  devise :database_authenticatable,
+         :registerable,
+         :recoverable,
+         :rememberable,
+         :validatable
+
+  with_options dependent: :destroy do
+    has_many :tweets
+    has_many :retweet_rels, class_name: 'Retweet'
+  end
+
+  has_many :retweets, through: :retweet_rels, source: :tweet
+
+  with_options class_name: 'Follow', dependent: :destroy do
+    has_many :follower_rels, foreign_key: :follower_id, inverse_of: :follower
+    has_many :followee_rels, foreign_key: :followee_id, inverse_of: :followee
+  end
+
   has_many :followers, through: :follower_rels, source: :followee
   has_many :followees, through: :followee_rels, source: :follower
+
   has_many :follower_tweets, through: :followers, source: :tweets
   has_many :follower_retweets, through: :followers, source: :retweets
+
   has_one_attached :icon
 
   def tweets_retweets

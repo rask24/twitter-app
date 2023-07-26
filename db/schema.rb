@@ -88,11 +88,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_01_092345) do
     t.string 'location'
     t.string 'website'
     t.index ['email'], name: 'index_users_on_email', unique: true
-    t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
+    t.index ['reset_password_token'],
+            name: 'index_users_on_reset_password_token',
+            unique: true
   end
 
-  add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
-  add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
+  add_foreign_key 'active_storage_attachments',
+                  'active_storage_blobs',
+                  column: 'blob_id'
+  add_foreign_key 'active_storage_variant_records',
+                  'active_storage_blobs',
+                  column: 'blob_id'
   add_foreign_key 'follows', 'users', column: 'followee_id'
   add_foreign_key 'follows', 'users', column: 'follower_id'
   add_foreign_key 'retweets', 'tweets'
