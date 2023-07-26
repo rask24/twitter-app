@@ -2,10 +2,10 @@
 
 module Users
   class UnlocksController < Devise::UnlocksController
-    # GET /resource/unlock/new
-    # def new
-    #   super
-    # end
+  # GET /resource/unlock/new
+  # def new
+  #   super
+  # end
 
     # POST /resource/unlock
     # def create
@@ -24,9 +24,9 @@ module Users
     #   super(resource)
     # end
 
-    # The path used after unlocking the resource
-    # def after_unlock_path_for(resource)
-    #   super(resource)
-    # end
+  # The path used after unlocking the resource
+  # def after_unlock_path_for(resource)
+  #   super(resource)
+  # end
   end
 end

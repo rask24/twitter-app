@@ -45,12 +45,17 @@ gem 'kaminari'
 gem 'pry-rails'
 # ransack
 gem 'ransack'
+<<<<<<< HEAD
+=======
 # for db seed
 gem 'faker'
+>>>>>>> fix-some
 # image processing
 gem 'image_processing'
 # image magick
 gem 'mini_magick'
+# fake data
+gem 'faker'
 
 # Use Sass to process CSS
 # gem 'sassc-rails'
@@ -62,13 +67,24 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
 
+<<<<<<< HEAD
+  # Helps to kill N+1 queries and unused eager loading
+  gem 'bullet'
+
+  # Rubocop takes care of the quality of the code
+=======
   # rubocop
+>>>>>>> fix-some
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec'
   gem 'rubocop-thread_safety'
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> fix-some
   # erblint
   gem 'erb_lint', require: false
 

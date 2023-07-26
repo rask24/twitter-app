@@ -1,2 +1,2 @@
-web: rails server -p 5000
-css: yarn dev
+web: rails server -p 3000
+css: yarn dev --watch

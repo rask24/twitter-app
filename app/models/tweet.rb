@@ -13,6 +13,12 @@ class Tweet < ApplicationRecord
   def self.ransackable_associations(_auth_object = nil)
     %w[retwet_user retweet_users retweets user]
   end
+  def self.ransackable_attributes(_auth_object = nil)
+    ['text']
+  end
+  def self.ransackable_associations(_auth_object = nil)
+    %w[retwet_user retweet_users retweets user]
+  end
   def retweet_info(user_id)
     retweets.find_by user_id:
   end
@@ -32,6 +38,10 @@ class Tweet < ApplicationRecord
         )
         .preload(:user, :retweet_user, :retweets)
         .where(id:)
-    retweet_id.present? ? relation.find_by(retweets: { id: retweet_id }) : relation[0]
+    if retweet_id.present?
+      relation.find_by retweets: { id: retweet_id }
+    else
+      relation[0]
+    end
   end
 end

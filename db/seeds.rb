@@ -8,10 +8,10 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-NUM_OF_USERS = 100
-NUM_OF_TWEETS = 500
-NUM_OF_FOLLOWS = 100
-MAX_NUM_OF_RETWEETS = 30
+NUM_OF_USERS = 10
+NUM_OF_TWEETS = 50
+NUM_OF_FOLLOWS = 10
+MAX_NUM_OF_RETWEETS = 3
 
 NUM_OF_USERS.times do |_i|
   name = Faker::Internet.username
@@ -23,16 +23,14 @@ NUM_OF_TWEETS.times do |_i|
 end
 
 NUM_OF_USERS.times do |i|
-  user_follows = rand(1...NUM_OF_FOLLOWS)
-  user_follows.times do |j|
-    Follow.create(follower_id: i + 1, followee_id: j)
-  end
+  user_follows = rand 1...NUM_OF_FOLLOWS
+  user_follows.times { |j| Follow.create(follower_id: i + 1, followee_id: j) }
 end
 
 NUM_OF_USERS.times do |i|
-  user_retweets = rand(1...MAX_NUM_OF_RETWEETS)
+  user_retweets = rand 1...MAX_NUM_OF_RETWEETS
   shuffled_tweet_ids = (1...NUM_OF_TWEETS).to_a.shuffle
   user_retweets.times do |j|
-    Retweet.create(user_id: i + 1, tweet_id: shuffled_tweet_ids[j])
+    Retweet.create user_id: i + 1, tweet_id: shuffled_tweet_ids[j]
   end
 end
